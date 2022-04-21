@@ -23,7 +23,7 @@ type OptionsType<SuccessData, ErrorData> = {
     togglerType?: TogglersKeys;
     // -------------------------------------------------
     tryStart?: Function;
-    succes?: (successData: SuccessData) => void;
+    success?: (successData: SuccessData) => void;
     tryEnd?: (successData: SuccessData) => void;
     // -------------------------------------------------
     catchStart?: (errorData: ErrorData) => void;
@@ -35,6 +35,8 @@ type OptionsType<SuccessData, ErrorData> = {
 };
 
 export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<SuccessData, ErrorData>) {
+    console.log('make req');
+
     const {
         fetchOptions,
         callAction,
@@ -42,7 +44,7 @@ export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<S
         tryStart, tryEnd,
         catchStart, catchEnd,
         finallyStart, finallyEnd,
-        succes, error,
+        success, error,
     } = options;
 
     try {
@@ -59,9 +61,12 @@ export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<S
         }
 
         const result: SuccessData = yield call(() => customFetch(fetchOptions));
+        console.log('dasdsad', result);
 
-        if (succes) {
-            yield succes(result);
+        if (success) {
+            console.log('if');
+
+            yield success(result);
         }
 
         if (tryEnd) {

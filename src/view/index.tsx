@@ -12,6 +12,9 @@ import { useTogglersRedux } from '../bus/client/togglers';
 // Assets
 import { GlobalStyles, defaultTheme } from '../assets';
 
+// test redux
+import { makeRequest, FetchOptions } from '../tools/utils/';
+
 // Styles
 export const AppContainer = styled.div`
     height: 100vh;
@@ -23,6 +26,34 @@ export const AppContainer = styled.div`
 export const App: FC = () => {
     const { setTogglerAction } = useTogglersRedux();
     const [ isDefaultTheme ] = useLocalStorage('isDefaultTheme', true);
+
+    //*********** */
+    const [ userId, setUserId ] = useLocalStorage('userId', null);
+    // console.log('userId: ', userId);
+
+    const foo = () => fetch('https://jsonplaceholder.typicode.com/users');
+
+    const reqOptions: FetchOptions = {
+        fetch: foo,
+    };
+
+    const result = (getRes: any) => {
+        console.log('success: ', getRes);
+    };
+
+    (async() => {
+        const res = makeRequest({ fetchOptions: reqOptions, success: result });
+        // for (const iterator of res) {
+        //     console.log('>> ', iterator);
+        // }
+        console.log('generator: ', res.next());
+        console.log('generator: ', res.next());
+        console.log('generator: ', res.next());
+    })();
+
+
+    //********** */
+
 
     const setOnlineStatusHanlder = useCallback(() => void setTogglerAction({
         type:  'isOnline',

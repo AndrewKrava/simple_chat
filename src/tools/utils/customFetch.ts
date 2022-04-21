@@ -6,6 +6,8 @@ import { ControlledError } from './controlledError';
 import { FetchOptions } from './makeRequest';
 
 export const customFetch = async <SuccessData, ErrorData = {}>(fetchOptions: FetchOptions) => {
+    console.log('custom fetch');
+
     const response = await fetchOptions.fetch();
 
     if (fetchOptions.successStatusCode && (response.status !== fetchOptions.successStatusCode)) {
@@ -25,6 +27,8 @@ export const customFetch = async <SuccessData, ErrorData = {}>(fetchOptions: Fet
     }
 
     const succesData: SuccessData = await response.json();
+
+    console.log('success data: ', succesData);
 
     return succesData;
 };
