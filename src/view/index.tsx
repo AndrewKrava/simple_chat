@@ -28,9 +28,9 @@ export const App: FC = () => {
 
     //*********** */
 
-    const { auth, fetchAuth, fetchRegistration } = useAuth();
+    // const { auth, fetchAuth, fetchRegistration } = useAuth();
 
-    const [ userId, setUserId ] = useLocalStorage('userId', '');
+    // const [ userId, setUserId ] = useLocalStorage('userId', '');
 
 
     const setOnlineStatusHanlder = useCallback(() => void setTogglerAction({
@@ -38,29 +38,27 @@ export const App: FC = () => {
         value: navigator.onLine,
     }), [ setTogglerAction ]);
 
-    const initTest = useCallback(() => {
-        fetchRegistration('test_user_1');
-    }, []);
+    // const initTest = useCallback(() => {
+    //     fetchRegistration('test_user_1');
+    // }, []);
 
-    }
 
     //*********** */
-
 
 
     useEffect(() => {
         console.log('use effect');
 
 
-        if (userId && !isLoggedIn) {
-            fetchAuth(userId);
-            console.log('auth>>> ', auth);
+        // if (userId && !isLoggedIn) {
+        //     fetchAuth(userId);
+        //     console.log('auth>>> ', auth);
 
-            setTogglerAction({
-                type:  'isLoggedIn',
-                value: true,
-            });
-        }
+        //     setTogglerAction({
+        //         type:  'isLoggedIn',
+        //         value: true,
+        //     });
+        // }
 
 
         setOnlineStatusHanlder();
