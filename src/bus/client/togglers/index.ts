@@ -12,7 +12,7 @@ const initialState = {
 
 // Types
 export type TogglersKeys = keyof typeof initialState;
-type Options = { type: TogglersKeys, value: boolean };
+type Options = { type: TogglersKeys; value: boolean };
 
 // Slice
 export const toggrersSlice = createSlice({
@@ -43,4 +43,3 @@ export const useTogglersRedux = () => {
 
 // Used ./src/tools/helpers/makeRequest
 export const togglerCreatorAction = toggrersActions.togglerCreatorAction;
-

@@ -8,12 +8,10 @@ import { Routes } from './routes';
 // Hooks
 import { useLocalStorage } from '../tools/hooks';
 import { useTogglersRedux } from '../bus/client/togglers';
+import { useAuth } from '../bus/auth';
 
 // Assets
 import { GlobalStyles, defaultTheme } from '../assets';
-
-// test redux
-import { makeRequest, FetchOptions } from '../tools/utils/';
 
 // Styles
 export const AppContainer = styled.div`
@@ -24,33 +22,28 @@ export const AppContainer = styled.div`
 `;
 
 export const App: FC = () => {
-    const { setTogglerAction } = useTogglersRedux();
+    const { setTogglerAction, togglersRedux: { isLoggedIn }} = useTogglersRedux();
     const [ isDefaultTheme ] = useLocalStorage('isDefaultTheme', true);
+    const { auth, fetchAuth, fetchRegistration } = useAuth();
 
     //*********** */
-    const [ userId, setUserId ] = useLocalStorage('userId', null);
-    // console.log('userId: ', userId);
+    const [ userId, setUserId ] = useLocalStorage('userId', '');
 
-    const foo = () => fetch('https://jsonplaceholder.typicode.com/users');
+    // if (userId && !isLoggedIn) {
+    // // make request /users/refresh/:userId if success -> loggin
+    //     fetchAuth(userId);
+    //     console.log('auth>>> ', auth);
 
-    const reqOptions: FetchOptions = {
-        fetch: foo,
-    };
+    //     setTogglerAction({
+    //         type:  'isLoggedIn',
+    //         value: true,
+    //     });
+    // } else {
+    //     // fetchRegistration('testuser1');
+    //     // console.log('if ', auth);
 
-    const result = (getRes: any) => {
-        console.log('success: ', getRes);
-    };
-
-    (async() => {
-        const res = makeRequest({ fetchOptions: reqOptions, success: result });
-        // for (const iterator of res) {
-        //     console.log('>> ', iterator);
-        // }
-        console.log('generator: ', res.next());
-        console.log('generator: ', res.next());
-        console.log('generator: ', res.next());
-    })();
-
+    //     // setUserId('one');
+    // }
 
     //********** */
 
@@ -61,6 +54,17 @@ export const App: FC = () => {
     }), [ setTogglerAction ]);
 
     useEffect(() => {
+        console.log('use effect');
+
+        if (userId && !isLoggedIn) {
+            fetchAuth(userId);
+            console.log('auth>>> ', auth);
+
+            setTogglerAction({
+                type:  'isLoggedIn',
+                value: true,
+            });
+        }
         setOnlineStatusHanlder();
         window.addEventListener('online', setOnlineStatusHanlder);
         window.addEventListener('offline', setOnlineStatusHanlder);

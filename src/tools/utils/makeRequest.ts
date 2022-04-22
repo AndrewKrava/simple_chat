@@ -15,7 +15,7 @@ import { customFetch } from './customFetch';
 export type FetchOptions = {
     fetch: () => ReturnType<typeof fetch>;
     successStatusCode?: number;
-}
+};
 
 type OptionsType<SuccessData, ErrorData> = {
     fetchOptions: FetchOptions;
@@ -35,16 +35,18 @@ type OptionsType<SuccessData, ErrorData> = {
 };
 
 export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<SuccessData, ErrorData>) {
-    console.log('make req');
-
     const {
         fetchOptions,
         callAction,
         togglerType,
-        tryStart, tryEnd,
-        catchStart, catchEnd,
-        finallyStart, finallyEnd,
-        success, error,
+        tryStart,
+        tryEnd,
+        catchStart,
+        catchEnd,
+        finallyStart,
+        finallyEnd,
+        success,
+        error,
     } = options;
 
     try {
@@ -54,18 +56,17 @@ export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<S
         }
 
         if (togglerType) {
-            yield put(togglerCreatorAction({
-                type:  togglerType,
-                value: true,
-            }));
+            yield put(
+                togglerCreatorAction({
+                    type:  togglerType,
+                    value: true,
+                }),
+            );
         }
 
         const result: SuccessData = yield call(() => customFetch(fetchOptions));
-        console.log('dasdsad', result);
 
         if (success) {
-            console.log('if');
-
             yield success(result);
         }
 
@@ -102,10 +103,12 @@ export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<S
 
         // ------------- FINALLY BLOCK START -------------
         if (togglerType) {
-            yield put(togglerCreatorAction({
-                type:  togglerType,
-                value: false,
-            }));
+            yield put(
+                togglerCreatorAction({
+                    type:  togglerType,
+                    value: false,
+                }),
+            );
         }
 
         if (finallyEnd) {
@@ -114,4 +117,3 @@ export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<S
         // ------------- FINALLY BLOCK END -------------
     }
 }
-
