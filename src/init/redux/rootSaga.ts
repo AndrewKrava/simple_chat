@@ -2,8 +2,8 @@
 import { all } from 'redux-saga/effects';
 
 // Tools
-// import { watch__entityName__ } from '../../bus/__entityName__/saga';
+import { watchAuth } from '../../bus/auth/saga';
 
 export function* rootSaga() {
-    yield all([ /* watch__entityName__() */ ]);
+    yield all([ watchAuth() ]);
 }
