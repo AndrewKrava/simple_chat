@@ -11,10 +11,6 @@ export const useAuth = () => {
     const { refreshAuth, postRegistration } = useAuthSaga();
     const auth = useSelector((state) => state.auth);
 
-    // useEffect(() => {
-    //     // fetchAuth();
-    // }, []);
-
     return {
         auth,
         refreshAuth,

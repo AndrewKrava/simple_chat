@@ -46,6 +46,12 @@ const refreshAuth = (callAction: ReturnType<typeof refreshAuthAction>) => {
 
             yield put(authActions.errorAuth(error));
         },
+        finallyEnd: function* () {
+            yield put(togglerCreatorAction({
+                type:  'isInitialized',
+                value: true,
+            }));
+        },
     });
 };
 

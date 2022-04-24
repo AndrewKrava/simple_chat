@@ -10,31 +10,30 @@ import { ErrorBoundary } from '../../components';
 // Styles
 import * as S from './styles';
 
-
 const RegistrationPage: FC = () => {
-    // const [ disabledSubmit, setIsDisabledSubmit ] = useState(false);
     const [ username, setUsername ] = useState('');
-    const { postRegistration } = useAuth();
+    const { postRegistration, auth: { error }} = useAuth();
 
     const handlerSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         postRegistration(username);
     };
 
-    const disabled = () => username === '';
+    const disableSubmit = () => username === '';
 
     return (
         <S.Container>
+            <div>{error && error}</div>
             <form onSubmit = { (event) => handlerSubmit(event) }>
                 <input
+                    placeholder = 'username...'
                     type = 'text'
                     value = { username }
                     onChange = { (event) => setUsername(event.target.value) }
                 />
                 <button
-                    // disabled = { username === '' }
-                    disabled = { disabled() }
-                    type = 'submit'>Loggin
+                    disabled = { disableSubmit() }
+                    type = 'submit'>ENTER
                 </button>
             </form>
         </S.Container>

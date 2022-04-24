@@ -6,6 +6,8 @@ import { FetchOptions } from './makeRequest';
 
 export const customFetch = async <SuccessData, ErrorData = {}>(fetchOptions: FetchOptions) => {
     const response = await fetchOptions.fetch();
+    console.log('resp ', response);
+
 
     if (fetchOptions.successStatusCode && response.status !== fetchOptions.successStatusCode) {
         let errorData: ErrorData | null = null;

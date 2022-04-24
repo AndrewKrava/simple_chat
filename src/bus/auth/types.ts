@@ -2,7 +2,6 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
 // State
-
 export type AuthState = {
     _id:      string | null,
     username: string | null,

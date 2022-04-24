@@ -10,12 +10,16 @@ import { useAuth } from '../../../bus/auth';
 // Components
 import { ErrorBoundary } from '../../components';
 
+// Constants
+import { USER_ID } from '../../../init/constants';
+
 // Styles
 import * as S from './styles';
 
+// TODO phase2
 const ChatPage: FC = () => {
     const { auth } = useAuth();
-    const setUserId = useLocalStorage('userId', '')[ 1 ];
+    const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
 
     useEffect(() => {
         auth._id && setUserId(auth._id);

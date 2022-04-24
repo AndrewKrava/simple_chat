@@ -14,7 +14,7 @@ import { Spinner } from '../elements';
 export const Routes: FC = () => {
     const { togglersRedux: { isLoggedIn, isLoading }} = useTogglersRedux();
 
-    const init = () => {
+    const load = () => {
         if (isLoading) {
             return <Spinner/>;
         }
@@ -26,7 +26,7 @@ export const Routes: FC = () => {
 
     return (
         <Suspense fallback = { <Spinner /> }>
-            {init()}
+            { load() }
         </Suspense>
     );
 };

@@ -6,9 +6,10 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from '../../../tools/hooks';
 
 const initialState = {
-    isOnline:   navigator.onLine,
-    isLoggedIn: false,
-    isLoading:  false,
+    isOnline:      navigator.onLine,
+    isLoggedIn:    false,
+    isLoading:     false,
+    isInitialized: false,
 };
 
 // Types

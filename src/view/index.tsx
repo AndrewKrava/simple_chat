@@ -13,6 +13,9 @@ import { useAuth } from '../bus/auth';
 // Assets
 import { GlobalStyles, defaultTheme } from '../assets';
 
+// Constants
+import { USER_ID } from '../init/constants';
+
 // Styles
 export const AppContainer = styled.div`
     height: 100vh;
@@ -21,13 +24,15 @@ export const AppContainer = styled.div`
     flex-direction: column;
 `;
 
+// for test
+import { Spinner } from './elements/Spinner';
+
 export const App: FC = () => {
-    const { setTogglerAction } = useTogglersRedux();
+    const { setTogglerAction, togglersRedux: { isInitialized }} = useTogglersRedux();
     const [ isDefaultTheme ] = useLocalStorage('isDefaultTheme', true);
+    const [ userId ] = useLocalStorage(USER_ID, '');
 
     const { refreshAuth } = useAuth();
-
-    const [ userId ] = useLocalStorage('userId', '');
 
 
     const setOnlineStatusHanlder = useCallback(() => void setTogglerAction({
@@ -39,9 +44,15 @@ export const App: FC = () => {
         refreshAuth(userId);
     }, []);
 
+
     useEffect(() => {
         if (userId) {
             loginUser();
+        } else {
+            setTogglerAction({
+                type:  'isInitialized',
+                value: true,
+            });
         }
 
         setOnlineStatusHanlder();
@@ -53,7 +64,11 @@ export const App: FC = () => {
         <ThemeProvider theme = { isDefaultTheme ? defaultTheme : defaultTheme } >
             <GlobalStyles />
             <AppContainer>
-                <Routes />
+                {
+                    isInitialized
+                        ? <Routes />
+                        : <Spinner/>
+                }
             </AppContainer>
         </ThemeProvider>
     );
