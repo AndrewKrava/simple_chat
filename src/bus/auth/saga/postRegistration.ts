@@ -43,7 +43,7 @@ const postRegistration = (callAction: ReturnType<typeof postRegistrationAction>)
         },
         error: function* (error) {
             // TODO remove
-            console.log('!!!!!!!!!get error: ', error);
+            // console.log('!!!!!!!!!get error: ', error);
 
             yield put(authActions.errorAuth(error));
         },
