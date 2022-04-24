@@ -4,6 +4,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // Slice
+import { togglerCreatorAction } from '../../client/togglers';
 import { authActions, sliceName } from '../slice';
 
 // Tools
@@ -13,16 +14,15 @@ import { makeRequest } from '../../../tools/utils';
 import { REGISTRATION_PATH } from '../../../init/constants';
 
 // Action
-export const fetchRegistrationAction = createAction<string>(`${sliceName}/FETCH_REGISTRATION_ASYNC`);
+export const postRegistrationAction = createAction<string>(`${sliceName}/POST_REGISTRATION_ASYNC`);
 
 // Types
 import { AuthState } from '../types';
 
 // Saga
-const fetchRegistration = (callAction: ReturnType<typeof fetchRegistrationAction>) => {
-    console.log('callout registration action: ', callAction);
-
-    return makeRequest<AuthState>({
+const postRegistration = (callAction: ReturnType<typeof postRegistrationAction>) => {
+    return makeRequest<AuthState, Error>({
+        togglerType:  'isLoading',
         callAction,
         fetchOptions: {
             successStatusCode: 201,
@@ -36,11 +36,21 @@ const fetchRegistration = (callAction: ReturnType<typeof fetchRegistrationAction
         },
         success: function* (result) {
             yield put(authActions.setAuth(result));
+            yield put(togglerCreatorAction({
+                type:  'isLoggedIn',
+                value: true,
+            }));
+        },
+        error: function* (error) {
+            // TODO remove
+            console.log('get error: ', error);
+
+            yield put(authActions.errorAuth(error));
         },
     });
 };
 
 // Watcher
-export function* watchFetchRegistration(): SagaIterator {
-    yield takeLatest(fetchRegistrationAction.type, fetchRegistration);
+export function* watchPostRegistration(): SagaIterator {
+    yield takeLatest(postRegistrationAction.type, postRegistration);
 }

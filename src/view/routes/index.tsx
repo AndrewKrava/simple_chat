@@ -12,15 +12,21 @@ import { useTogglersRedux } from '../../bus/client/togglers';
 import { Spinner } from '../elements';
 
 export const Routes: FC = () => {
-    const { togglersRedux: { isLoggedIn }} = useTogglersRedux();
+    const { togglersRedux: { isLoggedIn, isLoading }} = useTogglersRedux();
+
+    const init = () => {
+        if (isLoading) {
+            return <Spinner/>;
+        }
+
+        return isLoggedIn
+            ? <Private />
+            : <Public />;
+    };
 
     return (
         <Suspense fallback = { <Spinner /> }>
-            {
-                isLoggedIn
-                    ? <Private />
-                    : <Public />
-            }
+            {init()}
         </Suspense>
     );
 };

@@ -8,16 +8,16 @@ import { useSelector } from '../../tools/hooks';
 import { useAuthSaga } from './saga';
 
 export const useAuth = () => {
-    const { fetchAuth, fetchRegistration } = useAuthSaga();
+    const { refreshAuth, postRegistration } = useAuthSaga();
     const auth = useSelector((state) => state.auth);
 
     // useEffect(() => {
-    //     fetchAuth();
+    //     // fetchAuth();
     // }, []);
 
     return {
         auth,
-        fetchAuth,
-        fetchRegistration,
+        refreshAuth,
+        postRegistration,
     };
 };

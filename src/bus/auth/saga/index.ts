@@ -4,23 +4,23 @@ import { SagaIterator } from '@redux-saga/core';
 import { all, call } from 'redux-saga/effects';
 
 // Watchers & Actions
-import { fetchAuthAction, watchFetchAuth } from './fetchAuth';
-import { fetchRegistrationAction, watchFetchRegistration } from './fetchRegistration';
+import { refreshAuthAction, watchRefreshAuth } from './refreshAuth';
+import { postRegistrationAction, watchPostRegistration } from './postRegistration';
 
 
 export const useAuthSaga = () => {
     const dispatch = useDispatch();
 
     return {
-        fetchAuth: (userId: string) => {
-            dispatch(fetchAuthAction(userId));
+        refreshAuth: (userId: string) => {
+            dispatch(refreshAuthAction(userId));
         },
-        fetchRegistration: (username: string) => {
-            dispatch(fetchRegistrationAction(username));
+        postRegistration: (username: string) => {
+            dispatch(postRegistrationAction(username));
         },
     };
 };
 
 export function* watchAuth(): SagaIterator {
-    yield all([ call(watchFetchAuth), call(watchFetchRegistration) ]);
+    yield all([ call(watchRefreshAuth), call(watchPostRegistration) ]);
 }

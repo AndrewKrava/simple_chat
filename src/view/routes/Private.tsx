@@ -1,6 +1,6 @@
 // Core
 import React, { FC } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Pages
 import { ChatPage } from '../pages';
@@ -11,6 +11,15 @@ export const Private: FC = () => {
             <Route
                 element = { <ChatPage /> }
                 path = '/chat'
+            />
+            <Route
+                element = {
+                    <Navigate
+                        replace
+                        to = '/chat'
+                    />
+                }
+                path = '*'
             />
         </Routes>
     );

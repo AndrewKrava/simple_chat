@@ -4,6 +4,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // Slice
+import { togglerCreatorAction } from '../../client/togglers';
 import { authActions, sliceName } from '../slice';
 
 // Tools
@@ -13,17 +14,15 @@ import { makeRequest } from '../../../tools/utils';
 import { REFRESH_AUTH_PATH } from '../../../init/constants';
 
 // Action
-export const fetchAuthAction = createAction<string>(`${sliceName}/FETCH_AUTH_ASYNC`);
+export const refreshAuthAction = createAction<string>(`${sliceName}/REFRESH_AUTH_ASYNC`);
 
 // Types
 import { AuthState } from '../types';
 
 // Saga
-const fetchAuth = (callAction: ReturnType<typeof fetchAuthAction>) => {
-    // TODO remove
-    console.log('callout refresh action: ', callAction);
-
+const refreshAuth = (callAction: ReturnType<typeof refreshAuthAction>) => {
     return makeRequest<AuthState, Error>({
+        togglerType:  'isLoading',
         callAction,
         fetchOptions: {
             successStatusCode: 200,
@@ -36,20 +35,21 @@ const fetchAuth = (callAction: ReturnType<typeof fetchAuthAction>) => {
         },
         success: function* (result) {
             yield put(authActions.setAuth(result));
+            yield put(togglerCreatorAction({
+                type:  'isLoggedIn',
+                value: true,
+            }));
         },
         error: function* (error) {
+            // TODO remove
             console.log('get error: ', error);
 
-            yield put(authActions.setAuth({
-                _id:      null,
-                username: null,
-                error:    error.message,
-            }));
+            yield put(authActions.errorAuth(error));
         },
     });
 };
 
 // Watcher
-export function* watchFetchAuth(): SagaIterator {
-    yield takeLatest(fetchAuthAction.type, fetchAuth);
+export function* watchRefreshAuth(): SagaIterator {
+    yield takeLatest(refreshAuthAction.type, refreshAuth);
 }

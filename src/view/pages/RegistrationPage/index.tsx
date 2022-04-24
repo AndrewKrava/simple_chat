@@ -1,8 +1,8 @@
 // Core
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 // Bus
-// import {} from '../../../bus/'
+import { useAuth } from '../../../bus/auth';
 
 // Components
 import { ErrorBoundary } from '../../components';
@@ -10,15 +10,33 @@ import { ErrorBoundary } from '../../components';
 // Styles
 import * as S from './styles';
 
-// Types
-type PropTypes = {
-    /* type props here */
-}
 
-const RegistrationPage: FC<PropTypes> = () => {
+const RegistrationPage: FC = () => {
+    // const [ disabledSubmit, setIsDisabledSubmit ] = useState(false);
+    const [ username, setUsername ] = useState('');
+    const { postRegistration } = useAuth();
+
+    const handlerSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        postRegistration(username);
+    };
+
+    const disabled = () => username === '';
+
     return (
         <S.Container>
-            Page: RegistrationPage
+            <form onSubmit = { (event) => handlerSubmit(event) }>
+                <input
+                    type = 'text'
+                    value = { username }
+                    onChange = { (event) => setUsername(event.target.value) }
+                />
+                <button
+                    // disabled = { username === '' }
+                    disabled = { disabled() }
+                    type = 'submit'>Loggin
+                </button>
+            </form>
         </S.Container>
     );
 };

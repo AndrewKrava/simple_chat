@@ -22,15 +22,12 @@ export const AppContainer = styled.div`
 `;
 
 export const App: FC = () => {
-    const { setTogglerAction, togglersRedux: { isLoggedIn }} = useTogglersRedux();
+    const { setTogglerAction } = useTogglersRedux();
     const [ isDefaultTheme ] = useLocalStorage('isDefaultTheme', true);
 
+    const { refreshAuth } = useAuth();
 
-    //*********** */
-
-    // const { auth, fetchAuth, fetchRegistration } = useAuth();
-
-    // const [ userId, setUserId ] = useLocalStorage('userId', '');
+    const [ userId ] = useLocalStorage('userId', '');
 
 
     const setOnlineStatusHanlder = useCallback(() => void setTogglerAction({
@@ -38,28 +35,14 @@ export const App: FC = () => {
         value: navigator.onLine,
     }), [ setTogglerAction ]);
 
-    // const initTest = useCallback(() => {
-    //     fetchRegistration('test_user_1');
-    // }, []);
-
-
-    //*********** */
-
+    const loginUser = useCallback(() => {
+        refreshAuth(userId);
+    }, []);
 
     useEffect(() => {
-        console.log('use effect');
-
-
-        // if (userId && !isLoggedIn) {
-        //     fetchAuth(userId);
-        //     console.log('auth>>> ', auth);
-
-        //     setTogglerAction({
-        //         type:  'isLoggedIn',
-        //         value: true,
-        //     });
-        // }
-
+        if (userId) {
+            loginUser();
+        }
 
         setOnlineStatusHanlder();
         window.addEventListener('online', setOnlineStatusHanlder);
