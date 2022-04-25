@@ -25,15 +25,15 @@ const ChatPage: FC = () => {
 
     const { messages, fetchMessages } = useMessages();
 
-    const init = useCallback(() => {
-        console.log('use callback');
+    // const init = useCallback(() => {
+    //     console.log('use callback');
 
-        fetchMessages();
-    }, []);
+    //     fetchMessages();
+    // }, []);
 
     useEffect(() => {
-        auth._id && setUserId(auth._id);
-        fetchMessages();
+        // auth._id && setUserId(auth._id);
+        // fetchMessages();
         // init();
     }, []);
 
