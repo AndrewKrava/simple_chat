@@ -7,8 +7,4 @@ export const Container = styled.section`
         margin: auto;
     }
 
-    .forTest {
-        margin-top: 50px;
-        margin-left: auto;
-    }
 `;
