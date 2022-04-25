@@ -15,9 +15,9 @@ export const Routes: FC = () => {
     const { togglersRedux: { isLoggedIn, isLoading }} = useTogglersRedux();
 
     const load = () => {
-        if (isLoading) {
-            return <Spinner/>;
-        }
+        // if (isLoading) {
+        //     return <Spinner/>;
+        // }
 
         return isLoggedIn
             ? <Private />

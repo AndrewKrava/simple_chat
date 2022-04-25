@@ -23,7 +23,6 @@ const RegistrationPage: FC = () => {
 
     return (
         <S.Container>
-            <div>{error && error}</div>
             <form onSubmit = { (event) => handlerSubmit(event) }>
                 <input
                     placeholder = 'username...'
