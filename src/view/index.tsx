@@ -5,10 +5,14 @@ import styled, { ThemeProvider } from 'styled-components';
 // Containers
 import { Routes } from './routes';
 
+// Elements
+import { Spinner } from './elements/Spinner';
+
 // Hooks
 import { useLocalStorage } from '../tools/hooks';
 import { useTogglersRedux } from '../bus/client/togglers';
 import { useAuth } from '../bus/auth';
+
 
 // Assets
 import { GlobalStyles, defaultTheme } from '../assets';
@@ -24,8 +28,6 @@ export const AppContainer = styled.div`
     flex-direction: column;
 `;
 
-// for test
-import { Spinner } from './elements/Spinner';
 
 export const App: FC = () => {
     const { setTogglerAction, togglersRedux: { isInitialized }} = useTogglersRedux();

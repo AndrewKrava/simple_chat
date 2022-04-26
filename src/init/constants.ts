@@ -6,6 +6,7 @@ export const REGISTRATION_PATH = ROOT_URL + 'users/register';
 // export const REGISTRATION_PATH = ROOT_URL + 'users1111/register';   // with error
 
 export const FETCH_MESSAGES_PATH = ROOT_URL + 'messages';
+export const POST_MESSAGE_PATH = ROOT_URL + 'messages';
 
 
 // Local

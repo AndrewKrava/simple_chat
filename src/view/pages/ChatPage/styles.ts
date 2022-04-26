@@ -40,6 +40,8 @@ export const Container = styled.section`
 
     .chat-main {
         background-color: rgb(38, 35, 55);
+        height: 50vh;
+        overflow: auto;
     }
 
     .logout-btn {

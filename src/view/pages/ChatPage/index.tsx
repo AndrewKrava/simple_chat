@@ -1,5 +1,5 @@
 // Core
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 // Hooks
 import { useLocalStorage } from '../../../tools/hooks';
@@ -17,24 +17,17 @@ import { USER_ID } from '../../../init/constants';
 // Styles
 import * as S from './styles';
 import { useMessages } from '../../../bus/messages';
+import { AdaptiveScroll, Message, Spinner, WriteMsg } from '../../elements';
 
 const ChatPage: FC = () => {
     const { auth } = useAuth();
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
-    const { setTogglerAction } = useTogglersRedux();
+    const { setTogglerAction, togglersRedux: { isLoading }} = useTogglersRedux();
 
-    const { messages, fetchMessages } = useMessages();
-
-    // const init = useCallback(() => {
-    //     console.log('use callback');
-
-    //     fetchMessages();
-    // }, []);
+    const { messages, postMessage } = useMessages();
 
     useEffect(() => {
-        // auth._id && setUserId(auth._id);
-        // fetchMessages();
-        // init();
+        auth._id && setUserId(auth._id);
     }, []);
 
     const logoutHandler = () => {
@@ -45,31 +38,52 @@ const ChatPage: FC = () => {
         });
     };
 
-    console.log('retr: ', messages);
+    const showMessages = () => {
+        if (messages?.length === 0) {
+            return <div>There is no message</div>;
+        }
 
+        return messages?.map((msg) => (
+            <Message
+                key = { msg._id }
+                { ...msg }
+            />
+        ));
+    };
 
     return (
         <S.Container>
-            <div className = 'container'>
+            {
+                isLoading
+                    ? <Spinner/>
+                    : (
+                        <div className = 'container'>
 
-                <div className = 'header'>
-                    <div className = 'header-label'>{auth.username?.toUpperCase()}</div>
-                    <button
-                        className = 'logout-btn'
-                        onClick = { logoutHandler }>Logout
-                    </button>
+                            <div className = 'header'>
+                                <div className = 'header-label'>{auth.username?.toUpperCase()}</div>
+                                <button
+                                    className = 'logout-btn'
+                                    onClick = { logoutHandler }>Logout
+                                </button>
 
-                </div>
-                <div className = 'chat-main'>
-                    <button onClick = { fetchMessages }>Test</button>
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                </div>
+                            </div>
+                            <div className = 'chat-main'>
+                                {showMessages()}
+
+                                {/* TODO use AdaptiveScroll  */}
+                                {/* <AdaptiveScroll > */}
+                                {/* </AdaptiveScroll> */}
+                            </div>
+
+                            <div className = ''>
+                                <WriteMsg {postMessage} />
+                            </div>
 
 
-            </div>
+                        </div>
+                    )
+            }
+
         </S.Container>
     );
 };

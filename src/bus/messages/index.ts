@@ -8,15 +8,15 @@ import { useSelector } from '../../tools/hooks';
 import { useMessagesSaga } from './saga';
 
 export const useMessages = () => {
-    const { fetchMessages } = useMessagesSaga();
+    const { fetchMessages, postMessage } = useMessagesSaga();
     const messages = useSelector((state) => state.messages);
 
     useEffect(() => {
-        // fetchMessages();
-    }, [ ]);
+        fetchMessages();
+    }, []);
 
     return {
         messages,
-        fetchMessages,
+        postMessage,
     };
 };

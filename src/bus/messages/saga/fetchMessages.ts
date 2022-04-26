@@ -18,7 +18,7 @@ import { MessagesState } from '../types';
 
 // Saga
 const fetchMessages = (callAction: ReturnType<typeof fetchMessagesAction>) => makeRequest<MessagesState>({
-    togglerType:  'isLoading',
+    // togglerType:  'isLoading',
     callAction,
     fetchOptions: {
         successStatusCode: 200,
