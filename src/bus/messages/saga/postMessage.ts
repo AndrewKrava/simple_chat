@@ -15,7 +15,6 @@ import { fetchMessagesAction } from './fetchMessages';
 export const postMessageAction = createAction<PostMessageObj>(`${sliceName}/POST_MESSAGES_ASYNC`);
 
 // Types
-// import { MessagesState } from '../types';    // TODO remove
 export type PostMessageObj = {
     text: string
     username: string
@@ -26,7 +25,7 @@ const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRe
     togglerType:  'isLoading',
     callAction,
     fetchOptions: {
-        successStatusCode: 200,
+        successStatusCode: 201,
         fetch:             () => fetch(`${POST_MESSAGE_PATH}`, {
             method:  'POST',
             headers: {
@@ -36,7 +35,6 @@ const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRe
         }),
     },
     success: function* (result) {
-        // yield put(messagesActions.setMessages(result));
         yield put(fetchMessagesAction(1));
     },
     // error: function* () {

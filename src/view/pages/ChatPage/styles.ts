@@ -39,8 +39,12 @@ export const Container = styled.section`
     }
 
     .chat-main {
+        display: flex;
+        flex-direction: column-reverse;
+
+        height: 50vh;   //TODO refactor
+
         background-color: rgb(38, 35, 55);
-        height: 50vh;
         overflow: auto;
     }
 

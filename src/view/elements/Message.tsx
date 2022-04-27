@@ -7,9 +7,16 @@ import { Message as MessageType } from '../../bus/messages/types';
 
 // Hooks
 import { useAuth } from '../../bus/auth';
+import { type } from 'os';
+
+type TContent = {
+    isMyMessage: boolean
+}
 
 // Styles
 const Container = styled.div`
+
+    justify-content: ${(isMyMessage: TContent) => isMyMessage ? 'flex-start' : 'flex-end'};
 
     .author {
         color: red;
@@ -42,7 +49,7 @@ export const Message: FC<MessageType> = (props) => {
     const getMessageStyle = () => props._id === _id ? 'message my-message' : 'message';
 
     return (
-        <Container>
+        <Container isMyMessage = { getMessageStyle() }>
             <div className = { getMessageStyle() }>
                 <p className = 'author'>{props.username}</p>
                 {props.text}

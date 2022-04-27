@@ -38,7 +38,7 @@ const ChatPage: FC = () => {
         });
     };
 
-    const showMessages = () => {
+    const renderMessages = () => {
         if (messages?.length === 0) {
             return <div>There is no message</div>;
         }
@@ -49,6 +49,17 @@ const ChatPage: FC = () => {
                 { ...msg }
             />
         ));
+    };
+
+    const postMessageHandler = (text: string) => {
+        if (auth.username) {
+            const messageObjToPost = {
+                text,
+                username: auth.username,
+            };
+
+            return postMessage(messageObjToPost);
+        }
     };
 
     return (
@@ -68,7 +79,7 @@ const ChatPage: FC = () => {
 
                             </div>
                             <div className = 'chat-main'>
-                                {showMessages()}
+                                {renderMessages()}
 
                                 {/* TODO use AdaptiveScroll  */}
                                 {/* <AdaptiveScroll > */}
@@ -76,7 +87,7 @@ const ChatPage: FC = () => {
                             </div>
 
                             <div className = ''>
-                                <WriteMsg {postMessage} />
+                                <WriteMsg postMessage = { postMessageHandler } />
                             </div>
 
 
