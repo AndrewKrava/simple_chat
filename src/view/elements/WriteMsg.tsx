@@ -41,7 +41,7 @@ export const WriteMsg: FC<PropsType> = (props) => {
             <button
                 disabled = { disableSubmit() }
                 type = 'submit'
-                onClick = { sendMessage }>SENT
+                onClick = { sendMessage }>SEND
             </button>
 
         </Container>

@@ -17,14 +17,16 @@ import { USER_ID } from '../../../init/constants';
 // Styles
 import * as S from './styles';
 import { useMessages } from '../../../bus/messages';
-import { AdaptiveScroll, Message, Spinner, WriteMsg } from '../../elements';
+// import { AdaptiveScroll, Message, Spinner, WriteMsg } from '../../elements';     // TODO use AdaptiveScroll
+import {  Message, Spinner, WriteMsg } from '../../elements';
+
 
 const ChatPage: FC = () => {
     const { auth } = useAuth();
+    const { messages, postMessage } = useMessages();
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
     const { setTogglerAction, togglersRedux: { isLoading }} = useTogglersRedux();
 
-    const { messages, postMessage } = useMessages();
 
     useEffect(() => {
         auth._id && setUserId(auth._id);

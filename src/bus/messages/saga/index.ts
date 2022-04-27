@@ -6,12 +6,10 @@ import { all, call } from 'redux-saga/effects';
 // Watchers & Actions
 import { fetchMessagesAction, watchFetchMessages } from './fetchMessages';
 import { postMessageAction, watchPostMessage, PostMessageObj } from './postMessage';
-import { useTogglersRedux } from '../../client/togglers';
 
 
 export const useMessagesSaga = () => {
     const dispatch = useDispatch();
-    const { setTogglerAction } = useTogglersRedux();
 
     return {
         fetchMessages: () => {
@@ -19,10 +17,6 @@ export const useMessagesSaga = () => {
         },
         postMessage: (msgObj: PostMessageObj) => {
             dispatch(postMessageAction(msgObj));
-            setTogglerAction({
-                type:  'isLoading',
-                value: false,
-            });
         },
     };
 };
