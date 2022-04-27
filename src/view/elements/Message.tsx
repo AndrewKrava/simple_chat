@@ -3,20 +3,16 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 // Types
-import { Message as MessageType } from '../../bus/messages/types';
+import { MessageType } from '../../bus/messages/types';
 
-// Hooks
-import { useAuth } from '../../bus/auth';
-import { type } from 'os';
-
-type TContent = {
+interface MessageInfo extends MessageType {
     isMyMessage: boolean
 }
 
 // Styles
 const Container = styled.div`
-
-    justify-content: ${(isMyMessage: TContent) => isMyMessage ? 'flex-start' : 'flex-end'};
+    display: flex;
+    justify-content: ${(props: Pick<MessageInfo, 'isMyMessage'>) => props.isMyMessage ? 'flex-end' : 'flex-start'};
 
     .author {
         color: red;
@@ -43,15 +39,15 @@ const Container = styled.div`
 
 `;
 
-export const Message: FC<MessageType> = (props) => {
-    const { auth:{ _id }} = useAuth();
 
-    const getMessageStyle = () => props._id === _id ? 'message my-message' : 'message';
+export const Message: FC<MessageInfo> = (props) => {
+    const getMessageStyle = () => props.isMyMessage ? 'message my-message' : 'message';
 
     return (
-        <Container isMyMessage = { getMessageStyle() }>
+        <Container
+            isMyMessage = { props.isMyMessage }>
             <div className = { getMessageStyle() }>
-                <p className = 'author'>{props.username}</p>
+                <p className = 'author'>{props.username} my Msg {props.isMyMessage}</p>
                 {props.text}
             </div>
 

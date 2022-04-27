@@ -47,6 +47,7 @@ const ChatPage: FC = () => {
             <Message
                 key = { msg._id }
                 { ...msg }
+                isMyMessage = { msg.username === auth.username }
             />
         ));
     };
@@ -87,7 +88,7 @@ const ChatPage: FC = () => {
                             </div>
 
                             <div className = ''>
-                                <WriteMsg postMessage = { postMessageHandler } />
+                                <WriteMsg postMessage = { postMessageHandler }  />
                             </div>
 
 

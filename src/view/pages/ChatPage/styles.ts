@@ -24,9 +24,6 @@ export const Container = styled.section`
 
         margin: auto;
 
-
-
-        /* background-color: antiquewhite; */
     }
 
     .header {
