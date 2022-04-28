@@ -6,6 +6,7 @@ import { all, call } from 'redux-saga/effects';
 // Watchers & Actions
 import { fetchMessagesAction, watchFetchMessages } from './fetchMessages';
 import { postMessageAction, watchPostMessage, PostMessageObj } from './postMessage';
+import { deleteMessageAction, watchDeleteMessage } from './deleteMessage';
 
 
 export const useMessagesSaga = () => {
@@ -18,9 +19,12 @@ export const useMessagesSaga = () => {
         postMessage: (msgObj: PostMessageObj) => {
             dispatch(postMessageAction(msgObj));
         },
+        deleteMessage: (msgId: string) => {
+            dispatch(deleteMessageAction(msgId));
+        },
     };
 };
 
 export function* watchMessages(): SagaIterator {
-    yield all([ call(watchFetchMessages), call(watchPostMessage) ]);
+    yield all([ call(watchFetchMessages), call(watchPostMessage), call(watchDeleteMessage) ]);
 }

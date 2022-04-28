@@ -18,12 +18,13 @@ import { USER_ID } from '../../../init/constants';
 import * as S from './styles';
 import { useMessages } from '../../../bus/messages';
 // import { AdaptiveScroll, Message, Spinner, WriteMsg } from '../../elements';     // TODO use AdaptiveScroll
-import {  Message, Spinner, WriteMsg } from '../../elements';
+import {  SentMessage, Spinner, WriteMsg } from '../../elements';
+import { ReceivedMessage } from '../../elements/ReceivedMessage';
 
 
 const ChatPage: FC = () => {
     const { auth } = useAuth();
-    const { messages, postMessage } = useMessages();
+    const { messages, postMessage, deleteMessage } = useMessages();
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
     const { setTogglerAction, togglersRedux: { isLoading }} = useTogglersRedux();
 
@@ -46,12 +47,19 @@ const ChatPage: FC = () => {
         }
 
         return messages?.map((msg) => (
-            <Message
-                key = { msg._id }
-                { ...msg }
-                isMyMessage = { msg.username === auth.username }
-            />
-        ));
+            msg.username === auth.username
+                ? <SentMessage key={msg._id} {...msg} deleteMessage={deleteMessage} />
+                : <ReceivedMessage key={msg._id} {...msg} />
+        )
+        
+        // (
+        //     <SentMessage
+        //         key = { msg._id }
+        //         { ...msg }
+        //         deleteMessage = { deleteMessage }
+        //         isMyMessage = { msg.username === auth.username }
+        //     />
+        // ));
     };
 
     const postMessageHandler = (text: string) => {
@@ -64,6 +72,7 @@ const ChatPage: FC = () => {
             return postMessage(messageObjToPost);
         }
     };
+
 
     return (
         <S.Container>

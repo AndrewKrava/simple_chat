@@ -1,13 +1,16 @@
 // Core
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 // Types
 import { MessageType } from '../../bus/messages/types';
 
 interface MessageInfo extends MessageType {
     isMyMessage: boolean
+    deleteMessage: (msgId: string) => void
 }
 
 // Styles
@@ -50,14 +53,24 @@ const Container = styled.div`
             }
     }
 
+    .message-tools {
+        display: flex;
+        justify-content: flex-end;
+
+        svg {
+            padding: 0.3rem;
+            :hover {
+                cursor: pointer;
+            }
+        }
+    }
+
 `;
 
-// test
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
+export const SentMessage: FC<MessageInfo> = (props) => {
+    const [ isEditing, setIsEditing ] = useState(false);
 
-export const Message: FC<MessageInfo> = (props) => {
     const getMessageStyle = () => props.isMyMessage ? 'message my-message' : 'message';
 
     const renderAuthor = () => !props.isMyMessage && <p className = 'author'>{props.username}</p>;
@@ -72,15 +85,22 @@ export const Message: FC<MessageInfo> = (props) => {
                     { moment(props.updatedAt).format('hh:mm:ss') }
                 </div>
             </>
-
         );
     };
 
     const renderMessageTools = () => props.isMyMessage && (
-        <>
-            <FontAwesomeIcon icon = { faEdit } />
-            <FontAwesomeIcon icon = { faTrash } />
-        </>
+        <div className = 'message-tools'>
+            <FontAwesomeIcon
+                icon = { faEdit }
+                size = 'xs'
+                onClick = { () => void setIsEditing(true) }
+            />
+            <FontAwesomeIcon
+                icon = { faTrash }
+                size = 'xs'
+                onClick = { () => void props.deleteMessage(props._id) }
+            />
+        </div>
     );
 
     return (
