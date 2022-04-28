@@ -2,12 +2,16 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+// Elements
+import { MsgMetadata } from './MsgMetadata';
 
-// justify - content: ${ (props: Pick<MessageInfo, 'isMyMessage'>) => props.isMyMessage ? 'flex-end' : 'flex-start' };
+// Types
+import { MessageType } from '../../bus/messages/types';
 
-
+// Styles
 const Container = styled.div`
     display: flex;
+    justify-content: flex-start;
 
     .author {
         margin-bottom: 0.5rem;
@@ -28,11 +32,6 @@ const Container = styled.div`
         background-color: rgb(56, 48, 83);
     }
 
-    .my-message {
-        color: black;
-        background-color: rgb(159, 133, 255);
-    }
-
     .message-info {
         margin-top: 0.5rem;
         display: grid;
@@ -43,25 +42,24 @@ const Container = styled.div`
                 justify-content: flex-end;
             }
     }
-
-    .message-tools {
-        display: flex;
-        justify-content: flex-end;
-
-        svg {
-            padding: 0.3rem;
-            :hover {
-                cursor: pointer;
-            }
-        }
-    }
-
 `;
 
-export const ReceivedMessage: FC = () => {
+export const ReceivedMessage: FC<MessageType> = (props) => {
+    const renderAuthor = () => <p className = 'author'>{props.username}</p>;
+
+
     return (
         <Container>
-            recieved msg
+            <div className = 'message'>
+
+                {renderAuthor()}
+                {props.text}
+                <MsgMetadata
+                    createdAt = { props.createdAt }
+                    updatedAt = { props.updatedAt }
+                />
+            </div>
+
         </Container>
     );
 };

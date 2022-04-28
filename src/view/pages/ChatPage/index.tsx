@@ -24,7 +24,7 @@ import { ReceivedMessage } from '../../elements/ReceivedMessage';
 
 const ChatPage: FC = () => {
     const { auth } = useAuth();
-    const { messages, postMessage, deleteMessage } = useMessages();
+    const { messages, postMessage, deleteMessage, putMessage } = useMessages();
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
     const { setTogglerAction, togglersRedux: { isLoading }} = useTogglersRedux();
 
@@ -46,20 +46,21 @@ const ChatPage: FC = () => {
             return <div>There is no message</div>;
         }
 
-        return messages?.map((msg) => (
-            msg.username === auth.username
-                ? <SentMessage key={msg._id} {...msg} deleteMessage={deleteMessage} />
-                : <ReceivedMessage key={msg._id} {...msg} />
-        )
-        
-        // (
-        //     <SentMessage
-        //         key = { msg._id }
-        //         { ...msg }
-        //         deleteMessage = { deleteMessage }
-        //         isMyMessage = { msg.username === auth.username }
-        //     />
-        // ));
+        return messages?.map((msg) => msg.username === auth.username
+            ? (
+                <SentMessage
+                    key = { msg._id }
+                    { ...msg }
+                    deleteMessage = { deleteMessage }
+                    putMessage = { putMessage }
+                />
+            )
+            : (
+                <ReceivedMessage
+                    key = { msg._id }
+                    { ...msg }
+                />
+            ));
     };
 
     const postMessageHandler = (text: string) => {

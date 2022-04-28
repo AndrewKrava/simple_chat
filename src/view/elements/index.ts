@@ -3,3 +3,5 @@ export * from './AdaptiveScroll';
 export * from './SentMessage';
 export * from './WriteMsg';
 export * from './SentMessage';
+export * from './MsgMetadata';
+export * from './EditMessage';
