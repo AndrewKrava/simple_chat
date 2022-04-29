@@ -34,7 +34,7 @@ const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRe
             body: JSON.stringify(callAction.payload),
         }),
     },
-    success: function* (result) {
+    tryEnd: function* () {
         yield put(fetchMessagesAction(1));
     },
     // error: function* () {

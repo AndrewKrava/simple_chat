@@ -40,7 +40,7 @@ const putMessage = (callAction: ReturnType<typeof putMessageAction>) => makeRequ
             body: JSON.stringify(callAction.payload.messageObj),
         }),
     },
-    success: function* (result) {
+    tryEnd: function* () {
         yield put(fetchMessagesAction(1));
     },
     // error: function* () {

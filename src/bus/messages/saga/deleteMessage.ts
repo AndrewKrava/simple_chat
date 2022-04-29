@@ -29,7 +29,7 @@ const deleteMessage = (callAction: ReturnType<typeof deleteMessageAction>) => ma
             },
         }),
     },
-    success: function* (result) {
+    tryEnd: function* () {
         yield put(fetchMessagesAction(1));
     },
     // error: function* () {
