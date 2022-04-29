@@ -4,14 +4,11 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // Slice
-import { sliceName } from '../slice';
+import { messagesActions, sliceName } from '../slice';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
 import { PUT_MESSAGE_PATH } from '../../../init/constants';
-
-// Action
-import { fetchMessagesAction } from './fetchMessages';
 
 // Types
 import { MessageType } from '../types';
@@ -28,7 +25,7 @@ export const putMessageAction = createAction<PutMessage>(`${sliceName}/PUT_MESSA
 
 // Saga
 const putMessage = (callAction: ReturnType<typeof putMessageAction>) => makeRequest<MessageType>({
-    // togglerType: 'isLoading',
+    togglerType:  'isLoading',
     callAction,
     fetchOptions: {
         successStatusCode: 200,
@@ -40,8 +37,8 @@ const putMessage = (callAction: ReturnType<typeof putMessageAction>) => makeRequ
             body: JSON.stringify(callAction.payload.messageObj),
         }),
     },
-    tryEnd: function* () {
-        yield put(fetchMessagesAction(1));
+    success: function* (result) {
+        yield put(messagesActions.editMessage(result));
     },
     // error: function* () {
 

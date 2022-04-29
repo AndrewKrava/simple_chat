@@ -20,5 +20,6 @@ export const useMessages = () => {
         postMessage,
         deleteMessage,
         putMessage,
+        fetchMessages,
     };
 };

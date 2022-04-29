@@ -44,14 +44,15 @@ export const WriteMsg: FC<PropsType> = (props) => {
         setMessage(event.target.value);
     };
 
-    const sendMessage = () => {
+    const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         props.postMessage(message);
     };
 
     const disableSubmit = () => message === '';
 
     return (
-        <Container>
+        <Container onSubmit = { (event) => sendMessage(event) }>
             <input
                 type = 'text'
                 value = { message }
@@ -61,8 +62,7 @@ export const WriteMsg: FC<PropsType> = (props) => {
             <button
                 className = 'submit-btn'
                 disabled = { disableSubmit() }
-                type = 'submit'
-                onClick = { sendMessage }>SEND
+                type = 'submit'>SEND
             </button>
 
         </Container>

@@ -27,10 +27,15 @@ import { useMessages } from '../../../bus/messages';
 
 const ChatPage: FC = () => {
     const { auth } = useAuth();
-    const { messages, postMessage, deleteMessage, putMessage } = useMessages();
+    const { messages, postMessage, deleteMessage, putMessage, fetchMessages } = useMessages();
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
     const { setTogglerAction, togglersRedux: { isLoading }} = useTogglersRedux();
 
+    useEffect(() => {
+        const timerId = setInterval(fetchMessages, 30000);
+
+        return () => clearInterval(timerId);
+    }, []);
 
     useEffect(() => {
         auth._id && setUserId(auth._id);

@@ -4,14 +4,16 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // Slice
-import { sliceName } from '../slice';
+import { messagesActions, sliceName } from '../slice';
+
+// Types
+import { MessageType } from '../types';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
 import { POST_MESSAGE_PATH } from '../../../init/constants';
 
-// Action
-import { fetchMessagesAction } from './fetchMessages';
+
 export const postMessageAction = createAction<PostMessageObj>(`${sliceName}/POST_MESSAGES_ASYNC`);
 
 // Types
@@ -21,7 +23,7 @@ export type PostMessageObj = {
 }
 
 // Saga
-const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRequest<PostMessageObj>({
+const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRequest<MessageType>({
     togglerType:  'isLoading',
     callAction,
     fetchOptions: {
@@ -34,8 +36,8 @@ const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRe
             body: JSON.stringify(callAction.payload),
         }),
     },
-    tryEnd: function* () {
-        yield put(fetchMessagesAction(1));
+    success: function* (response) {
+        yield put(messagesActions.addMessage(response));
     },
     // error: function* () {
 

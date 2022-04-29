@@ -15,3 +15,7 @@ export type MessagesState = Array<MessageType> | null;
 export type BaseContact<T = any> = CaseReducer<MessagesState, PayloadAction<T>>;
 
 export type SetMessages = BaseContact<MessagesState>;
+
+export type SetNewMessage = BaseContact<MessageType>;
+
+export type DeleteMessage = BaseContact<string>;
