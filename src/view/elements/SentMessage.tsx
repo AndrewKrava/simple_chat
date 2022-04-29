@@ -2,7 +2,7 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 // Elements
 import { MsgMetadata } from './MsgMetadata';
@@ -23,15 +23,6 @@ const Container = styled.div`
     justify-content: flex-end;
 
     .message {
-        margin: 10px;
-        padding: 10px;
-
-        width: 60%;
-
-        font-size: 1.2rem;
-        overflow-wrap: anywhere;
-
-        color: black;
         background-color: rgb(159, 133, 255);
     }
 
@@ -41,6 +32,7 @@ const Container = styled.div`
         padding-bottom: 0.3rem;
 
         svg {
+            color: black;
             padding: 0.3rem;
             :hover {
                 cursor: pointer;
@@ -69,12 +61,14 @@ export const SentMessage: FC<MessageInfo> = (props) => {
         setIsEditing(false);
     };
 
+    const getEditStyle = () => isEditing ? faTimes : faEdit;
+
     const renderMessageTools = () => (
         <div className = 'message-tools'>
             <FontAwesomeIcon
-                icon = { faEdit }
+                icon = { getEditStyle() }
                 size = 'xs'
-                onClick = { () => void setIsEditing(true) }
+                onClick = { () => void setIsEditing((prev) => !prev) }
             />
             <FontAwesomeIcon
                 icon = { faTrash }
@@ -96,7 +90,7 @@ export const SentMessage: FC<MessageInfo> = (props) => {
                             text = { props.text }
                             update = { putMessageHandler }
                         />)
-                        : props.text
+                        : <p>{props.text} </p>
                 }
                 <MsgMetadata
                     createdAt = { props.createdAt }

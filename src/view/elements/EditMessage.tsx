@@ -1,10 +1,9 @@
 // Core
 import React, { FC, useState } from 'react';
-import { finished } from 'stream';
 import styled from 'styled-components';
 
 // Styles
-const Container = styled.div`
+const Container = styled.form`
     display: grid;
     grid-template-columns: 3fr 1fr;
     input {
@@ -22,23 +21,10 @@ const Container = styled.div`
         50% { border-bottom-color: red}
     }
 
-    button {
-        width: fit-content;
-        border-radius: 5px;
-        color: white;
-        background-color: #6200ea;
-    }
-
     .button-section {
         display: flex;
         justify-content: flex-end;
     }
-    button {
-        :hover {
-            cursor: pointer;
-        }
-    }
-
 `;
 
 // Types
@@ -60,6 +46,8 @@ export const EditMessage: FC<PropsType> = (props) => {
         props.finish();
     };
 
+    const disableSubmit = () => message === props.text;
+
     return (
         <Container>
             <input
@@ -69,6 +57,8 @@ export const EditMessage: FC<PropsType> = (props) => {
             />
             <div className = 'button-section'>
                 <button
+                    className = 'submit-btn'
+                    disabled = { disableSubmit() }
                     type = 'submit'
                     onClick = { () => submit() }>Update
                 </button>

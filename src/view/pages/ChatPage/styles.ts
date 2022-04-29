@@ -7,6 +7,7 @@ const tablet = '(min-width: 426px) and (max-width: 768px)';
 
 export const Container = styled.section`
 
+    padding-top: 20px;
     height: 100vh;
     background-color: black;
     color: white;
@@ -31,8 +32,17 @@ export const Container = styled.section`
         justify-content: center;
         padding: 10px;;
     }
-    
-    .header-label {
+
+    .logout-btn {
+        position: relative;
+        left: 35%;
+        padding: 3px 5px;
+
+        border: none;
+        border-radius: 5px;
+
+        color: white;
+        background-color: red;
     }
 
     .chat-main {
@@ -45,10 +55,35 @@ export const Container = styled.section`
         overflow: auto;
     }
 
-    .logout-btn {
-        position: relative;
-        left: 35%;
+
+
+    /* used in children component */
+    .submit-btn {
+        border: none;
+        border-radius: 5px;
+        color: white;
+        background-color: #6200ea;
+
+        :hover {
+            cursor: pointer;
+        }
+
+        :disabled {
+            color: rgb(87, 85, 93);
+            background-color: rgb(117, 115, 126);
+            :hover {
+                cursor: not-allowed;
+            }
+        }
     }
 
+    .message {
+        margin: 10px;
+        padding: 10px;
 
+        width: 60%;
+
+        font-size: 1.2rem;
+        overflow-wrap: anywhere;
+    }
 `;

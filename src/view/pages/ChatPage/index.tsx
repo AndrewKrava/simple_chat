@@ -11,15 +11,18 @@ import { useAuth } from '../../../bus/auth';
 // Components
 import { ErrorBoundary } from '../../components';
 
+// Elements
+import {  SentMessage, Spinner, WriteMsg } from '../../elements';
+import { ReceivedMessage } from '../../elements/ReceivedMessage';
+
 // Constants
 import { USER_ID } from '../../../init/constants';
+
 
 // Styles
 import * as S from './styles';
 import { useMessages } from '../../../bus/messages';
 // import { AdaptiveScroll, Message, Spinner, WriteMsg } from '../../elements';     // TODO use AdaptiveScroll
-import {  SentMessage, Spinner, WriteMsg } from '../../elements';
-import { ReceivedMessage } from '../../elements/ReceivedMessage';
 
 
 const ChatPage: FC = () => {
@@ -99,10 +102,7 @@ const ChatPage: FC = () => {
                                 {/* </AdaptiveScroll> */}
                             </div>
 
-                            <div className = ''>
-                                <WriteMsg postMessage = { postMessageHandler }  />
-                            </div>
-
+                            <WriteMsg postMessage = { postMessageHandler }  />
 
                         </div>
                     )

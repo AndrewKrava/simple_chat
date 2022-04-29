@@ -9,6 +9,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     font-size: 0.8rem;
+    color: #c6ff00;
         .date {
             display: flex;
             justify-content: flex-end;

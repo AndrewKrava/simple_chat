@@ -20,15 +20,6 @@ const Container = styled.div`
     }
 
     .message {
-        margin: 10px;
-        padding: 10px;
-
-        width: 60%;
-
-        color: white;
-        font-size: 1.2rem;
-        overflow-wrap: anywhere;
-
         background-color: rgb(56, 48, 83);
     }
 
@@ -53,7 +44,7 @@ export const ReceivedMessage: FC<MessageType> = (props) => {
             <div className = 'message'>
 
                 {renderAuthor()}
-                {props.text}
+                <p>{props.text}</p>
                 <MsgMetadata
                     createdAt = { props.createdAt }
                     updatedAt = { props.updatedAt }
