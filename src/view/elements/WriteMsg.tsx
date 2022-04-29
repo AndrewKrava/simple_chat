@@ -65,6 +65,8 @@ export const WriteMsg: FC<PropsType> = (props) => {
                 onClick = { sendMessage }>SEND
             </button>
 
+            <button>ico</button>
+
         </Container>
     );
 };
