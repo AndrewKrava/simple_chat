@@ -8,8 +8,8 @@ import { useSelector } from '../../tools/hooks';
 import { useAuthSaga } from './saga';
 
 export const useAuth = () => {
-    const { refreshAuth, postRegistration } = useAuthSaga();
     const auth = useSelector((state) => state.auth);
+    const { refreshAuth, postRegistration } = useAuthSaga();
 
     return {
         auth,

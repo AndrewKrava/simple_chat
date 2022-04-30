@@ -5,6 +5,11 @@ export const REFRESH_AUTH_PATH = ROOT_URL + 'users/refresh/';
 export const REGISTRATION_PATH = ROOT_URL + 'users/register';
 // export const REGISTRATION_PATH = ROOT_URL + 'users1111/register';   // with error
 
+export const FETCH_MESSAGES_PATH = ROOT_URL + 'messages';
+export const POST_MESSAGE_PATH = ROOT_URL + 'messages';
+export const DELETE_MESSAGE_PATH = ROOT_URL + 'messages/';
+export const PUT_MESSAGE_PATH = ROOT_URL + 'messages/';
+
 
 // Local
 export const APP_NAME = process.env.APP_NAME || 'Awesome web app';

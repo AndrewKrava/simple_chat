@@ -6,8 +6,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { RegistrationPage } from '../pages';
 
 export const Public: FC = () => {
-    console.log();
-
     return (
         <Routes>
             <Route
