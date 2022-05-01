@@ -24,25 +24,24 @@ export const Container = styled.section`
         }
 
         margin: auto;
-
     }
 
     .header {
+        position: relative;
         display: flex;
         justify-content: center;
-        padding: 10px;;
+        margin: 20px 0;
+        
+        width: 100%;
     }
 
-    .logout-btn {
-        position: relative;
-        left: 35%;
-        padding: 3px 5px;
-
-        border: none;
-        border-radius: 5px;
-
-        color: white;
-        background-color: red;
+    .control-buttons {
+        position: absolute;
+        right: 20px;
+        svg {
+            margin-left: 25px;
+            cursor: pointer;
+        }
     }
 
     .chat-main {

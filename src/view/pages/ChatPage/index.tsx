@@ -1,5 +1,7 @@
 // Core
 import React, { FC, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRedoAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Hooks
 import { useLocalStorage } from '../../../tools/hooks';
@@ -31,11 +33,6 @@ const ChatPage: FC = () => {
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
     const { setTogglerAction, togglersRedux: { isLoading }} = useTogglersRedux();
 
-    useEffect(() => {
-        const timerId = setInterval(fetchMessages, 30000);
-
-        return () => clearInterval(timerId);
-    }, []);
 
     useEffect(() => {
         auth._id && setUserId(auth._id);
@@ -92,13 +89,27 @@ const ChatPage: FC = () => {
                         <div className = 'container'>
 
                             <div className = 'header'>
-                                <div className = 'header-label'>{auth.username?.toUpperCase()}</div>
-                                <button
-                                    className = 'logout-btn'
-                                    onClick = { logoutHandler }>Logout
-                                </button>
+                                <div>{auth.username?.toUpperCase()}</div>
 
+                                <div className = 'control-buttons'>
+
+                                    <FontAwesomeIcon
+                                        icon = { faRedoAlt }
+                                        size = 'lg'
+                                        title = 'refresh'
+                                        onClick = { fetchMessages }
+                                    />
+
+                                    <FontAwesomeIcon
+                                        icon = { faSignOutAlt }
+                                        size = 'lg'
+                                        title = 'logout'
+                                        onClick = { logoutHandler }
+                                    />
+
+                                </div>
                             </div>
+
                             <div className = 'chat-main'>
                                 {renderMessages()}
 
