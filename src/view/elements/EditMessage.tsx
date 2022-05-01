@@ -63,8 +63,6 @@ export const EditMessage: FC<PropsType> = (props) => {
                     type = 'submit'>Update
                 </button>
             </div>
-
-
         </Container>
     );
 };

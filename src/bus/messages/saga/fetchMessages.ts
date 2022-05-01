@@ -16,6 +16,7 @@ export const fetchMessagesAction = createAction<number>(`${sliceName}/FETCH_MESS
 // Types
 import { MessagesState } from '../types';
 
+// TODO error handling
 // Saga
 const fetchMessages = (callAction: ReturnType<typeof fetchMessagesAction>) => makeRequest<MessagesState>({
     togglerType:  'isLoading',

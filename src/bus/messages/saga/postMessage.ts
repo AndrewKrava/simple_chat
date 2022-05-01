@@ -22,6 +22,7 @@ export type PostMessageObj = {
     username: string
 }
 
+// TODO error handling
 // Saga
 const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRequest<MessageType>({
     togglerType:  'isLoading',

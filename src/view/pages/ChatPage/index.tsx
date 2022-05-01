@@ -24,7 +24,6 @@ import { USER_ID } from '../../../init/constants';
 // Styles
 import * as S from './styles';
 import { useMessages } from '../../../bus/messages';
-// import { AdaptiveScroll, Message, Spinner, WriteMsg } from '../../elements';     // TODO use AdaptiveScroll
 
 
 const ChatPage: FC = () => {
@@ -112,10 +111,6 @@ const ChatPage: FC = () => {
 
                             <div className = 'chat-main'>
                                 {renderMessages()}
-
-                                {/* TODO use AdaptiveScroll  */}
-                                {/* <AdaptiveScroll > */}
-                                {/* </AdaptiveScroll> */}
                             </div>
 
                             <WriteMsg postMessage = { postMessageHandler }  />

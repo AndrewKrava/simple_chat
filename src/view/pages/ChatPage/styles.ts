@@ -20,7 +20,7 @@ export const Container = styled.section`
         }
 
         @media ${tablet} {
-            width: 80vw;
+            width: 100vw;
         }
 
         margin: auto;
@@ -48,7 +48,16 @@ export const Container = styled.section`
         display: flex;
         flex-direction: column-reverse;
 
-        height: 50vh;   //TODO refactor
+        height: 50vh;
+
+        @media ${mobile} {
+            height: calc(100vh - 162px);
+
+        }
+
+        @media ${tablet} {
+            height: calc(100vh - 162px);
+        }
 
         background-color: rgb(38, 35, 55);
         overflow: auto;

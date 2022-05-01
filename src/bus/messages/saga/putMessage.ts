@@ -22,7 +22,7 @@ export type PutMessage = {
 
 export const putMessageAction = createAction<PutMessage>(`${sliceName}/PUT_MESSAGES_ASYNC`);
 
-
+// TODO error handling
 // Saga
 const putMessage = (callAction: ReturnType<typeof putMessageAction>) => makeRequest<MessageType>({
     togglerType:  'isLoading',

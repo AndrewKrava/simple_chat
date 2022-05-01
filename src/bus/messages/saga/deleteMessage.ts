@@ -13,7 +13,7 @@ import { DELETE_MESSAGE_PATH } from '../../../init/constants';
 
 export const deleteMessageAction = createAction<string>(`${sliceName}/DELETE_MESSAGES_ASYNC`);
 
-
+// TODO error handling
 // Saga
 const deleteMessage = (callAction: ReturnType<typeof deleteMessageAction>) => makeRequest<boolean>({
     togglerType:  'isLoading',
