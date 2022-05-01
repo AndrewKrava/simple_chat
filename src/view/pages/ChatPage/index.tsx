@@ -1,5 +1,5 @@
 // Core
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedoAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,7 +14,7 @@ import { useAuth } from '../../../bus/auth';
 import { ErrorBoundary } from '../../components';
 
 // Elements
-import {  SentMessage, Spinner, WriteMsg } from '../../elements';
+import {  Keyboard, SentMessage, Spinner, WriteMsg } from '../../elements';
 import { ReceivedMessage } from '../../elements/ReceivedMessage';
 
 // Constants
@@ -27,6 +27,7 @@ import { useMessages } from '../../../bus/messages';
 
 
 const ChatPage: FC = () => {
+    const [ showKeyboard, setShowKeyboard ] = useState(false);
     const { auth } = useAuth();
     const { messages, postMessage, deleteMessage, putMessage, fetchMessages } = useMessages();
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
@@ -114,6 +115,9 @@ const ChatPage: FC = () => {
                             </div>
 
                             <WriteMsg postMessage = { postMessageHandler }  />
+
+
+                            <Keyboard />
 
                         </div>
                     )

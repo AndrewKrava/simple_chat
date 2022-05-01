@@ -1,11 +1,8 @@
 // Core
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-
-
-// TODO keyboard-ico svg for keyboard button, use in phase3
-// import pic1 from '../../../static/images/keyboard.svg';
-// import pic2 from '../../../static/images/keyboard1.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
 
 
 // Styles
@@ -29,6 +26,12 @@ const Container = styled.form`
     }
 
     button {
+        margin-left: 5px;
+    }
+
+    svg {
+        margin-top: auto;
+        margin-bottom: auto;
         margin-left: 5px;
     }
 `;
@@ -64,6 +67,13 @@ export const WriteMsg: FC<PropsType> = (props) => {
                 disabled = { disableSubmit() }
                 type = 'submit'>SEND
             </button>
+
+            <FontAwesomeIcon
+
+                icon = { faKeyboard }
+                size = '2x'
+            />
+
 
         </Container>
     );
