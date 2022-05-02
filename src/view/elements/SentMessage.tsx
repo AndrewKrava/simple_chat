@@ -24,6 +24,7 @@ const Container = styled.div`
 
     .message {
         background-color: rgb(159, 133, 255);
+        border-radius: 15px 15px 0 15px;
     }
 
     .message-tools {

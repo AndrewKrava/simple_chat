@@ -13,14 +13,15 @@ const Container = styled.div`
     display: flex;
     justify-content: flex-start;
 
+    .message {
+        background-color: rgb(56, 48, 83);
+        border-radius: 15px 15px 15px 0;
+    }
+
     .author {
         margin-bottom: 0.5rem;
         color: #ff8a80;
         font-size: 0.9rem;
-    }
-
-    .message {
-        background-color: rgb(56, 48, 83);
     }
 
     .message-info {
@@ -36,14 +37,10 @@ const Container = styled.div`
 `;
 
 export const ReceivedMessage: FC<MessageType> = (props) => {
-    const renderAuthor = () => <p className = 'author'>{props.username}</p>;
-
-
     return (
         <Container>
             <div className = 'message'>
-
-                {renderAuthor()}
+                <p className = 'author'>{props.username}</p>
                 <p>{props.text}</p>
                 <MsgMetadata
                     createdAt = { props.createdAt }

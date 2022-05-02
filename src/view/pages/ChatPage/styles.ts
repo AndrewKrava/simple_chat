@@ -20,36 +20,44 @@ export const Container = styled.section`
         }
 
         @media ${tablet} {
-            width: 80vw;
+            width: 100vw;
         }
 
         margin: auto;
-
     }
 
     .header {
+        position: relative;
         display: flex;
         justify-content: center;
-        padding: 10px;;
+        margin: 20px 0;
+        
+        width: 100%;
     }
 
-    .logout-btn {
-        position: relative;
-        left: 35%;
-        padding: 3px 5px;
-
-        border: none;
-        border-radius: 5px;
-
-        color: white;
-        background-color: red;
+    .control-buttons {
+        position: absolute;
+        right: 20px;
+        svg {
+            margin-left: 25px;
+            cursor: pointer;
+        }
     }
 
     .chat-main {
         display: flex;
         flex-direction: column-reverse;
 
-        height: 50vh;   //TODO refactor
+        height: 50vh;
+
+        @media ${mobile} {
+            height: calc(100vh - 162px);
+
+        }
+
+        @media ${tablet} {
+            height: calc(100vh - 162px);
+        }
 
         background-color: rgb(38, 35, 55);
         overflow: auto;

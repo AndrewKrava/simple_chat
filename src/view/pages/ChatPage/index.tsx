@@ -1,5 +1,7 @@
 // Core
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRedoAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Hooks
 import { useLocalStorage } from '../../../tools/hooks';
@@ -12,7 +14,7 @@ import { useAuth } from '../../../bus/auth';
 import { ErrorBoundary } from '../../components';
 
 // Elements
-import {  SentMessage, Spinner, WriteMsg } from '../../elements';
+import {  Keyboard, SentMessage, Spinner, WriteMsg } from '../../elements';
 import { ReceivedMessage } from '../../elements/ReceivedMessage';
 
 // Constants
@@ -22,12 +24,12 @@ import { USER_ID } from '../../../init/constants';
 // Styles
 import * as S from './styles';
 import { useMessages } from '../../../bus/messages';
-// import { AdaptiveScroll, Message, Spinner, WriteMsg } from '../../elements';     // TODO use AdaptiveScroll
 
 
 const ChatPage: FC = () => {
+    const [ showKeyboard, setShowKeyboard ] = useState(false);
     const { auth } = useAuth();
-    const { messages, postMessage, deleteMessage, putMessage } = useMessages();
+    const { messages, postMessage, deleteMessage, putMessage, fetchMessages } = useMessages();
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
     const { setTogglerAction, togglersRedux: { isLoading }} = useTogglersRedux();
 
@@ -87,22 +89,35 @@ const ChatPage: FC = () => {
                         <div className = 'container'>
 
                             <div className = 'header'>
-                                <div className = 'header-label'>{auth.username?.toUpperCase()}</div>
-                                <button
-                                    className = 'logout-btn'
-                                    onClick = { logoutHandler }>Logout
-                                </button>
+                                <div>{auth.username?.toUpperCase()}</div>
 
+                                <div className = 'control-buttons'>
+
+                                    <FontAwesomeIcon
+                                        icon = { faRedoAlt }
+                                        size = 'lg'
+                                        title = 'refresh'
+                                        onClick = { fetchMessages }
+                                    />
+
+                                    <FontAwesomeIcon
+                                        icon = { faSignOutAlt }
+                                        size = 'lg'
+                                        title = 'logout'
+                                        onClick = { logoutHandler }
+                                    />
+
+                                </div>
                             </div>
+
                             <div className = 'chat-main'>
                                 {renderMessages()}
-
-                                {/* TODO use AdaptiveScroll  */}
-                                {/* <AdaptiveScroll > */}
-                                {/* </AdaptiveScroll> */}
                             </div>
 
                             <WriteMsg postMessage = { postMessageHandler }  />
+
+
+                            <Keyboard />
 
                         </div>
                     )

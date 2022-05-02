@@ -4,21 +4,19 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // Slice
-import { sliceName } from '../slice';
+import { messagesActions, sliceName } from '../slice';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
 import { DELETE_MESSAGE_PATH } from '../../../init/constants';
 
-// Action
-import { fetchMessagesAction } from './fetchMessages';
 
 export const deleteMessageAction = createAction<string>(`${sliceName}/DELETE_MESSAGES_ASYNC`);
 
-
+// TODO error handling
 // Saga
 const deleteMessage = (callAction: ReturnType<typeof deleteMessageAction>) => makeRequest<boolean>({
-    // togglerType: 'isLoading',
+    togglerType:  'isLoading',
     callAction,
     fetchOptions: {
         successStatusCode: 200,
@@ -29,8 +27,8 @@ const deleteMessage = (callAction: ReturnType<typeof deleteMessageAction>) => ma
             },
         }),
     },
-    success: function* (result) {
-        yield put(fetchMessagesAction(1));
+    tryEnd: function* () {
+        yield put(messagesActions.deleteMessage(callAction.payload));
     },
     // error: function* () {
 

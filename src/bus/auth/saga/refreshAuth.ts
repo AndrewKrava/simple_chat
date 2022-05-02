@@ -41,9 +41,6 @@ const refreshAuth = (callAction: ReturnType<typeof refreshAuthAction>) => {
             }));
         },
         error: function* (error) {
-            // TODO remove
-            console.log('get error: ', error);
-
             yield put(authActions.errorAuth(error));
         },
         finallyEnd: function* () {
