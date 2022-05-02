@@ -14,7 +14,7 @@ import { useAuth } from '../../../bus/auth';
 import { ErrorBoundary } from '../../components';
 
 // Elements
-import {  Keyboard, SentMessage, Spinner, WriteMsg } from '../../elements';
+import {  SentMessage, Spinner, WriteMsg } from '../../elements';
 import { ReceivedMessage } from '../../elements/ReceivedMessage';
 
 // Constants
@@ -115,9 +115,6 @@ const ChatPage: FC = () => {
                             </div>
 
                             <WriteMsg postMessage = { postMessageHandler }  />
-
-
-                            <Keyboard />
 
                         </div>
                     )

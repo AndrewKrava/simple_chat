@@ -5,7 +5,20 @@ import styled from 'styled-components';
 
 // Styles
 const Container = styled.div`
+    /* position: sticky; */
+    position: absolute;
+    bottom: 3vh;
 
+    opacity: 1;
+
+    margin: auto;
+
+    width: min(70%, 800px);
+    height: max(150px, 25vh); 
+    border: 0 solid #0b1301;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #e58c18;
 `;
 
 type PropsType = {
@@ -13,50 +26,13 @@ type PropsType = {
 }
 
 export const Keyboard: FC<PropsType> = (props) => {
-    const el = useRef<HTMLInputElement | null>(null);
-    const listener = useRef<HTMLDivElement | null>(null);
+    // useEffect(() => {
 
-    useEffect(() => {
-        // el.current?.addEventListener('keypress', () => {
-        //     console.log('event key press');
-        // });
-        window.addEventListener('keypress', () => {
-            console.log('event key press');
-        });
-    }, []);
-
-
-    const handler = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        console.log('event: ', event);
-    };
-
-    const eventPress = () => {
-        // document.dispatchEvent
-        // console.log('ref ', el);
-        el.current?.dispatchEvent(new KeyboardEvent('keypress', { key: 'a', which: 65 }));
-    };
-
-    console.log('el ', el);
-    console.log('el current ', el.current);
-
+    // }, []);
 
     return (
         <Container>
-            <input
-                ref = { el }
-                type = 'text'
-                // onChange = { event =>  }
-                // onKeyDown = { (event) => handler(event) }
-                // onKeyPress = { (event) => handler(event) }
-                // onKeyUp = { (event) => handler(event) }
-            />
-
-            <div ref = { listener }>listener
-                <div>
-                    <button onClick = { () => eventPress() }>press</button>
-                </div>
-
-            </div>
+            keyboard
         </Container>
     );
 };
