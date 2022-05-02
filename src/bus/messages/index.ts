@@ -7,12 +7,12 @@ import { useSelector } from '../../tools/hooks';
 // Saga
 import { useMessagesSaga } from './saga';
 
-export const useMessages = () => {
+export const useMessages = (isInit = false) => {
     const { fetchMessages, postMessage, deleteMessage, putMessage } = useMessagesSaga();
     const messages = useSelector((state) => state.messages);
 
     useEffect(() => {
-        fetchMessages();
+        isInit && fetchMessages();
     }, []);
 
     return {

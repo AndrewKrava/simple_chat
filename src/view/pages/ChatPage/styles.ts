@@ -84,14 +84,4 @@ export const Container = styled.section`
             }
         }
     }
-
-    .message {
-        margin: 10px;
-        padding: 10px;
-
-        width: 60%;
-
-        font-size: 1.2rem;
-        overflow-wrap: anywhere;
-    }
 `;
