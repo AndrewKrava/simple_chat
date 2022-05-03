@@ -2,11 +2,9 @@
 import styled from 'styled-components';
 
 const mobile = '(max-width: 425px)';
-
 const tablet = '(min-width: 426px) and (max-width: 768px)';
 
 export const Container = styled.section`
-
     padding-top: 20px;
     height: 100vh;
     background-color: black;
@@ -31,13 +29,17 @@ export const Container = styled.section`
         display: flex;
         justify-content: center;
         margin: 20px 0;
-        
         width: 100%;
+    }
+    
+    .header-title {
+        font-size: 1.5rem;
     }
 
     .control-buttons {
         position: absolute;
         right: 20px;
+
         svg {
             margin-left: 25px;
             cursor: pointer;
@@ -47,12 +49,10 @@ export const Container = styled.section`
     .chat-main {
         display: flex;
         flex-direction: column-reverse;
-
         height: 50vh;
 
         @media ${mobile} {
             height: calc(100vh - 162px);
-
         }
 
         @media ${tablet} {
@@ -62,8 +62,6 @@ export const Container = styled.section`
         background-color: rgb(38, 35, 55);
         overflow: auto;
     }
-
-
 
     /* used in children component */
     .submit-btn {
@@ -79,6 +77,7 @@ export const Container = styled.section`
         :disabled {
             color: rgb(87, 85, 93);
             background-color: rgb(117, 115, 126);
+            
             :hover {
                 cursor: not-allowed;
             }

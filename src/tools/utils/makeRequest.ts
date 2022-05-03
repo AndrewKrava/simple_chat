@@ -86,9 +86,10 @@ export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<S
             yield error(errorData);
         }
 
-        if (callAction) {
-            yield put(callAction);
-        }
+        // TODO refactor
+        // if (callAction) {
+        //     yield put(callAction);
+        // }
 
         if (catchEnd) {
             yield catchEnd(errorData);

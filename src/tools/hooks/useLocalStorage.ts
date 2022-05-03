@@ -5,7 +5,8 @@ import localStorage from 'store';
 // Instruments
 import { APP_NAME } from '../../init';
 
-export const useLocalStorage = <_, TValue>(key: string, innitialValue: TValue): [TValue, (value: TValue) => void] => {
+export const useLocalStorage = <_, TValue>(key: string, innitialValue: TValue)
+: [TValue, (value: TValue) => void, () => void] => {
     const [ storedValue, setStoredValue ] = useState(() => {
         try {
             const value: TValue | undefined = localStorage.get(`${APP_NAME}:${key}`);
@@ -27,8 +28,17 @@ export const useLocalStorage = <_, TValue>(key: string, innitialValue: TValue): 
         }
     };
 
+    const removeItem = () => {
+        try {
+            localStorage.remove(`${APP_NAME}:${key}`);
+        } catch (error) {
+            console.log(`error occurred while trying to remove key: ${APP_NAME}:${key}. With message: ${error}`);
+        }
+    };
+
     return [
         storedValue,
         setValue,
+        removeItem,
     ];
 };

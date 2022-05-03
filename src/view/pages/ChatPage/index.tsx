@@ -5,59 +5,33 @@ import { faRedoAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Hooks
 import { useLocalStorage } from '../../../tools/hooks';
-import { useTogglersRedux } from '../../../bus/client/togglers';
 
 // Bus
 import { useAuth } from '../../../bus/auth';
+import { useMessages } from '../../../bus/messages';
 
 // Components
 import { ErrorBoundary, Message } from '../../components';
 
 // Elements
-import {  SentMessage, Spinner, WriteMsg } from '../../elements';
-import { ReceivedMessage } from '../../elements/ReceivedMessage';
+import { NewMessage } from '../../elements';
 
 // Constants
 import { USER_ID } from '../../../init/constants';
 
-
 // Styles
 import * as S from './styles';
-import { useMessages } from '../../../bus/messages';
-
 
 const ChatPage: FC = () => {
     const [ showKeyboard, setShowKeyboard ] = useState(false);
-    const { auth } = useAuth();
-    const { messages, postMessage, deleteMessage, putMessage, fetchMessages } = useMessages(true);
+    const { auth, logout } = useAuth();
+    const { messages, postMessage, fetchMessages } = useMessages(true);
+
+    // TODO refactor move to hook
     const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
-    const { setTogglerAction, togglersRedux: { isLoading }} = useTogglersRedux();
-
-
     useEffect(() => {
         auth._id && setUserId(auth._id);
     }, []);
-
-    const logoutHandler = () => {
-        setUserId('');
-        setTogglerAction({
-            type:  'isLoggedIn',
-            value: false,
-        });
-    };
-
-    const renderMessages = () => {
-        if (messages?.length === 0) {
-            return <div>There is no message</div>;
-        }
-
-        return messages?.map((msg) => (
-            <Message
-                key = { msg._id }
-                { ...msg }
-            />
-        ));
-    };
 
     const postMessageHandler = (text: string) => {
         if (auth.username) {
@@ -70,13 +44,12 @@ const ChatPage: FC = () => {
         }
     };
 
-
     return (
         <S.Container>
             {
                 <div className = 'container'>
                     <div className = 'header'>
-                        <div>{auth.username?.toUpperCase()}</div>
+                        <div className = 'header-title'>{auth.username}</div>
                         <div className = 'control-buttons'>
                             <FontAwesomeIcon
                                 icon = { faRedoAlt }
@@ -88,14 +61,21 @@ const ChatPage: FC = () => {
                                 icon = { faSignOutAlt }
                                 size = 'lg'
                                 title = 'logout'
-                                onClick = { logoutHandler }
+                                onClick = { logout }
                             />
                         </div>
                     </div>
                     <div className = 'chat-main'>
-                        {renderMessages()}
+                        { messages?.length === 0
+                            ? <div>There is no message</div>
+                            : messages?.map((msg) => (
+                                <Message
+                                    key = { msg._id }
+                                    { ...msg }
+                                />
+                            ))}
                     </div>
-                    <WriteMsg postMessage = { postMessageHandler }  />
+                    <NewMessage postMessage = { postMessageHandler }  />
                 </div>
             }
         </S.Container>

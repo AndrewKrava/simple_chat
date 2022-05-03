@@ -23,8 +23,6 @@ const RegistrationPage: FC = () => {
         postRegistration(username);
     };
 
-    const disableSubmit = () => username === '';
-
     return (
         <S.Container>
             {
@@ -39,13 +37,12 @@ const RegistrationPage: FC = () => {
                                 onChange = { (event) => setUsername(event.target.value) }
                             />
                             <button
-                                disabled = { disableSubmit() }
+                                disabled = { username === '' }
                                 type = 'submit'>ENTER
                             </button>
                         </form>
                     )
             }
-
         </S.Container>
     );
 };

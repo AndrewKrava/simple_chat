@@ -22,17 +22,24 @@ const Container = styled.div`
 `;
 
 type PropsType = {
-
+    refObj: React.MutableRefObject<HTMLDivElement | null>
 }
 
 export const Keyboard: FC<PropsType> = (props) => {
     // useEffect(() => {
-
     // }, []);
+
+
+    const foo = () => {
+        props.refObj.current?.dispatchEvent(new CustomEvent('myevent', { detail: 'hello' }));
+    };
+
 
     return (
         <Container>
             keyboard
+            <button onClick = { () => foo() }>Btn</button>
+
         </Container>
     );
 };

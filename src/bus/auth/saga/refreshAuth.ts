@@ -26,7 +26,7 @@ const refreshAuth = (callAction: ReturnType<typeof refreshAuthAction>) => {
         callAction,
         fetchOptions: {
             successStatusCode: 200,
-            fetch:             () => fetch(REFRESH_AUTH_PATH + callAction.payload, {
+            fetch:             () => fetch(`${REFRESH_AUTH_PATH}${callAction.payload}`, {
                 method:  'GET',
                 headers: {
                     'Content-Type': 'application/json',

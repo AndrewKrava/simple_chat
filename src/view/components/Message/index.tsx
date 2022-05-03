@@ -17,16 +17,12 @@ import * as S from './styles';
 import { MessageType } from '../../../bus/messages/types';
 import { useMessages } from '../../../bus/messages';
 
-interface PropTypes extends MessageType {
-    /* type props here */
-}
-
-export const Message: FC<PropTypes> = (props) => {
+export const Message: FC<MessageType> = (props) => {
     const [ isEditing, setIsEditing ] = useState(false);
     const [ message, setMessage ] = useState(props.text);
-    const [ isShowAlert, setIsShowAlert ] = useState(false);      // refactor
+    const [ isShowAlert, setIsShowAlert ] = useState(false);
     const { auth: { username }} = useAuth();
-    const { deleteMessage } = useMessages();
+    const { putMessage } = useMessages();
 
     const isDateSame = moment(props.createdAt).isSame(props.updatedAt);
     const isMyMessage = username === props.username;
@@ -42,15 +38,36 @@ export const Message: FC<PropTypes> = (props) => {
         setIsEditing((prev) => !prev);
     };
 
+    const submitEditing = () => {
+        username
+        && putMessage({
+            messageId:  props._id,
+            messageObj: {
+                username: username,
+                text:     message,
+            },
+        });
+        setIsEditing(false);
+    };
+
     const deleteMessageHandler = () => {
-        // deleteMessage(props._id)
-        // return <Alert />;
         setIsShowAlert(true);
+    };
+
+    const declineDeleteMessage = () => {
+        setIsShowAlert(false);
     };
 
     return (
         <S.Container >
-            {isShowAlert && <Alert />}
+            {
+                isShowAlert && (
+                    <Alert
+                        declineDelete = { declineDeleteMessage }
+                        messageId = { props._id }
+                    />
+                )
+            }
             <div className = { isMyMessage ? 'box right-position' : 'box left-position' }>
                 <div className = { isMyMessage ? 'content my-message' : 'content message' }>
                     {
@@ -84,7 +101,8 @@ export const Message: FC<PropTypes> = (props) => {
                                         <button
                                             className = 'submit-btn'
                                             disabled = { message === props.text }
-                                            type = 'submit'>Update
+                                            type = 'submit'
+                                            onClick = { () => submitEditing() }>Update
                                         </button>
                                     </div>
                                 </div>

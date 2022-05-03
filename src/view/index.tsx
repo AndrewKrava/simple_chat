@@ -30,33 +30,16 @@ export const AppContainer = styled.div`
 
 
 export const App: FC = () => {
-    const { setTogglerAction, togglersRedux: { isInitialized }} = useTogglersRedux();
+    const { setTogglerAction } = useTogglersRedux();
     const [ isDefaultTheme ] = useLocalStorage('isDefaultTheme', true);
-    const [ userId ] = useLocalStorage(USER_ID, '');
-
-    const { refreshAuth } = useAuth();
-
+    const { isInitialized } = useAuth(true);
 
     const setOnlineStatusHanlder = useCallback(() => void setTogglerAction({
         type:  'isOnline',
         value: navigator.onLine,
     }), [ setTogglerAction ]);
 
-    const loginUser = useCallback(() => {
-        refreshAuth(userId);
-    }, []);
-
-
     useEffect(() => {
-        if (userId) {
-            loginUser();
-        } else {
-            setTogglerAction({
-                type:  'isInitialized',
-                value: true,
-            });
-        }
-
         setOnlineStatusHanlder();
         window.addEventListener('online', setOnlineStatusHanlder);
         window.addEventListener('offline', setOnlineStatusHanlder);
