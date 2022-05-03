@@ -51,6 +51,12 @@ type PropsType = {
     postMessage: (text: string) => void
 }
 
+interface TDet extends Event {
+    detail?: {
+        msg:string
+    }
+}
+
 export const NewMessage: FC<PropsType> = (props) => {
     const [ message, setMessage ] = useState('');
 
@@ -60,13 +66,18 @@ export const NewMessage: FC<PropsType> = (props) => {
 
     const keyboardRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
-        keyboardRef.current?.addEventListener('myevent', (event) => {
-            console.log('get me event ', event);
+        keyboardRef.current?.addEventListener('myevent', (event: TDet) => {
+            console.log('get me event ', event.detail?.msg);
             // setMessage(event.);
         });
     }, []);
 
+    const dispatchEvent = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        // console.log(event);
+        keyboardRef.current?.dispatchEvent(new CustomEvent('inputevent', { detail: event.code }));
+    };
 
+    ///////////
     const messageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(event.target.value);
     };
@@ -83,6 +94,7 @@ export const NewMessage: FC<PropsType> = (props) => {
                 type = 'text'
                 value = { message }
                 onChange = { (event) => messageHandler(event) }
+                onKeyUp = { (event) => dispatchEvent(event) }
                 // onKeyUp={}
             />
 

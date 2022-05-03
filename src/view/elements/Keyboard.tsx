@@ -26,12 +26,15 @@ type PropsType = {
 }
 
 export const Keyboard: FC<PropsType> = (props) => {
-    // useEffect(() => {
-    // }, []);
+    useEffect(() => {
+        props.refObj.current?.addEventListener('inputevent', (event) => {
+            console.log('>>> ', event);
+        });
+    }, []);
 
 
     const foo = () => {
-        props.refObj.current?.dispatchEvent(new CustomEvent('myevent', { detail: 'hello' }));
+        props.refObj.current?.dispatchEvent(new CustomEvent('myevent', { detail: { msg: 'hello' }}));
     };
 
 
