@@ -1,6 +1,6 @@
 // Core
 import styled from 'styled-components';
-import backgroundPic from '../../../../static/images/cave.jpg';
+import backgroundPic from '../../../assets/images/cave.jpg';
 
 export const Container = styled.section`
 

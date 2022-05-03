@@ -6,3 +6,4 @@ export * from './SentMessage';
 export * from './MsgMetadata';
 export * from './EditMessage';
 export  * from './Keyboard';
+export * from './Alert';

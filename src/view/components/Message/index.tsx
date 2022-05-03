@@ -7,6 +7,9 @@ import { faEdit, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 // Bus
 import { useAuth } from '../../../bus/auth';
 
+// Elements
+import { Alert } from '../../elements';
+
 // Styles
 import * as S from './styles';
 
@@ -21,6 +24,7 @@ interface PropTypes extends MessageType {
 export const Message: FC<PropTypes> = (props) => {
     const [ isEditing, setIsEditing ] = useState(false);
     const [ message, setMessage ] = useState(props.text);
+    const [ isShowAlert, setIsShowAlert ] = useState(false);      // refactor
     const { auth: { username }} = useAuth();
     const { deleteMessage } = useMessages();
 
@@ -40,11 +44,13 @@ export const Message: FC<PropTypes> = (props) => {
 
     const deleteMessageHandler = () => {
         // deleteMessage(props._id)
-        alert('hi');
+        // return <Alert />;
+        setIsShowAlert(true);
     };
 
     return (
         <S.Container >
+            {isShowAlert && <Alert />}
             <div className = { isMyMessage ? 'box right-position' : 'box left-position' }>
                 <div className = { isMyMessage ? 'content my-message' : 'content message' }>
                     {
