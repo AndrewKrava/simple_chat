@@ -6,9 +6,14 @@ import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
 import { Keyboard } from './Keyboard';
 
 
-//
+// test
+
+import { keyboardUtil, VirtualKeyboardEvent } from '../../tools/utils/keyboardUtil';
 const path1 = '../../assets/icons/keyboard.svg';
 const path2 = '../../assets/icons/keyboard1.svg';
+
+
+///
 
 // Styles
 const Container = styled.div`
@@ -51,33 +56,41 @@ type PropsType = {
     postMessage: (text: string) => void
 }
 
-interface TDet extends Event {
-    detail?: {
-        msg:string
-    }
-}
 
 export const NewMessage: FC<PropsType> = (props) => {
     const [ message, setMessage ] = useState('');
 
-    // temp keyboard
-    const [ show, setShow ] = useState(false);
-    //
+    // temp for test keyboard
+
+    const [ isShow, setIsShow ] = useState(true);
+
 
     const keyboardRef = useRef<HTMLDivElement | null>(null);
+    const setMessageHandler = (event: VirtualKeyboardEvent) => {
+        setMessage((prev) => prev + event.detail?.key);
+    };
     useEffect(() => {
-        keyboardRef.current?.addEventListener('myevent', (event: TDet) => {
-            console.log('get me event ', event.detail?.msg);
-            // setMessage(event.);
-        });
+        keyboardUtil().subscribe('keyboardevent', keyboardRef, setMessageHandler);
+
+        return () => keyboardUtil().removeSubscribe('keyboardevent', keyboardRef, setMessageHandler);
     }, []);
 
     const dispatchEvent = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        // console.log(event);
-        keyboardRef.current?.dispatchEvent(new CustomEvent('inputevent', { detail: event.code }));
+        console.log('ev ', event);
+
+        // console.log('ev ', event.currentTarget.getAttribute('key'));
+
+        const eventData = {
+            key:       event.key,
+            keycode:   String(event.keyCode),
+            eventName: event.type,
+        };
+        keyboardUtil().dispatch('inputevent', keyboardRef, eventData);
     };
 
     ///////////
+
+
     const messageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(event.target.value);
     };
@@ -94,8 +107,9 @@ export const NewMessage: FC<PropsType> = (props) => {
                 type = 'text'
                 value = { message }
                 onChange = { (event) => messageHandler(event) }
+                onKeyDown = { (event) => dispatchEvent(event) }
+                onKeyPress = { (event) => dispatchEvent(event) }
                 onKeyUp = { (event) => dispatchEvent(event) }
-                // onKeyUp={}
             />
 
             <button
@@ -107,8 +121,9 @@ export const NewMessage: FC<PropsType> = (props) => {
             <FontAwesomeIcon
                 icon = { faKeyboard }
                 size = '2x'
+                onClick = { () => setIsShow((prev) => !prev) }
             />
-            {!show && <Keyboard refObj = { keyboardRef } />}
+            {isShow && <Keyboard htmlRef = { keyboardRef } />}
         </Container>
     );
 };
