@@ -1,13 +1,14 @@
 export interface VirtualKeyboardEvent extends Event {
     detail?: {
         key: string
-        keycode: string
+        keyCode: string
+        eventName?: string
     }
 }
 
 export type CallbackType = (event: VirtualKeyboardEvent) => void
 
-export type KeyboardData = {
+export type KeyboardData  = {
     key: string
     keyCode: string
     eventName?: string

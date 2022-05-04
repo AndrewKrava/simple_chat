@@ -1,7 +1,7 @@
 type NPD = Array<[string | null, string | null, string | null]>
 
-const transformer = (arrayOfData: NPD) => arrayOfData.map(([ keyRuValue, keyEnValue, keyCode, keyColored = false ]) => ({
-    keyRuValue, keyEnValue, keyCode, keyColored,
+const transformer = (arrayOfData: NPD) => arrayOfData.map(([ keyRuValue, keyEnValue, keyCode ]) => ({
+    keyRuValue, keyEnValue, keyCode,
 }));
 
 const firstLine: NPD = [[ '1', '1', '49' ], [ '2', '2', '50' ], [ '3', '3', '51' ], [ '4', '4', '52' ], [ '5', '5', '53' ], [ '6', '6', '54' ], [ '7', '7', '55' ], [ '8', '8', '56' ], [ '9', '9', '57' ], [ '0', '0', '48' ]];

@@ -3,12 +3,13 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
-import { Keyboard } from './Keyboard';
+import { Keyboard } from '../components';
 
 
 // test
 
 import { keyboardUtil, VirtualKeyboardEvent } from '../../tools/utils/keyboardUtil';
+// TODO use if posible
 const path1 = '../../assets/icons/keyboard.svg';
 const path2 = '../../assets/icons/keyboard1.svg';
 
@@ -76,16 +77,14 @@ export const NewMessage: FC<PropsType> = (props) => {
     }, []);
 
     const dispatchEvent = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        console.log('ev ', event);
-
-        // console.log('ev ', event.currentTarget.getAttribute('key'));
-
-        const eventData = {
-            key:       event.key,
-            keycode:   String(event.keyCode),
-            eventName: event.type,
-        };
-        keyboardUtil().dispatch('inputevent', keyboardRef, eventData);
+        if (event.type !== 'keypress') {
+            const eventData = {
+                key:       event.key,
+                keyCode:   String(event.keyCode),
+                eventName: event.type,
+            };
+            keyboardUtil().dispatch('inputevent', keyboardRef, eventData);
+        }
     };
 
     ///////////
