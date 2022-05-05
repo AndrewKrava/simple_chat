@@ -7,18 +7,11 @@ import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
 // Components
 import { Keyboard } from '../components';
 
+// Utils
+import { keyboardUtil, VirtualKeyboardEvent } from '../../tools/utils/keyboardUtil';
+
 //  Constants
 import { ENTER_KEY_CODE, BACKSPACE_KEY_CODE } from '../../init/constants';
-
-// test
-
-import { keyboardUtil, VirtualKeyboardEvent } from '../../tools/utils/keyboardUtil';
-// TODO use if posible
-const path1 = '../../assets/icons/keyboard.svg';
-const path2 = '../../assets/icons/keyboard1.svg';
-
-
-///
 
 // Styles
 const Container = styled.div`
@@ -111,12 +104,10 @@ export const NewMessage: FC<PropsType> = (props) => {
         }
     };
 
-
     const messageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         messageState.current = event.target.value;
         setMessage(event.target.value);
     };
-
 
     return (
         <Container

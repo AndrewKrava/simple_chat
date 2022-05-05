@@ -1,3 +1,4 @@
+// Types
 export interface VirtualKeyboardEvent extends Event {
     detail?: {
         key: string
