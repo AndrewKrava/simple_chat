@@ -7,15 +7,14 @@ import { useTogglersRedux } from '../../../bus/client/togglers';
 
 // Components
 import { ErrorBoundary } from '../../components';
-import { Spinner } from '../../elements';
+import { AlertError, Spinner } from '../../elements';
 
 // Styles
 import * as S from './styles';
 
-// TODO error handling for callout
 const RegistrationPage: FC = () => {
     const [ username, setUsername ] = useState('');
-    const { postRegistration } = useAuth();
+    const { postRegistration, auth:{ error }} = useAuth();
     const { togglersRedux: { isLoading }} = useTogglersRedux();
 
     const handlerSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,6 +24,7 @@ const RegistrationPage: FC = () => {
 
     return (
         <S.Container>
+            { error && <AlertError message = { error } />}
             {
                 isLoading
                     ? <Spinner />

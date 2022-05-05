@@ -4,18 +4,14 @@ import styled from 'styled-components';
 export const Container = styled.section`
     position: absolute;
     bottom: 3vh;
-
     opacity: 1;
-
     margin: auto;
-
     width: min(70%, 800px);
     height: max(150px, 25vh); 
     border: 0 solid #0b1301;
     border-radius: 5px;
     padding: 5px;
     background-color: #e58c18;
-
     display: grid;
     grid-template-rows: repeat(5, 1fr);
 
@@ -38,9 +34,12 @@ export const Container = styled.section`
         align-items: center;
         color: black;
         background-color: white;
+        user-select: none;
+
         :hover {
             cursor: pointer;
         }
+        
         :active {
             box-shadow:         inset 0 0 10px #000000;
             background-color: rgba(0, 0, 0, 0);

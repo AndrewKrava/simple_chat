@@ -12,3 +12,11 @@ export const errorAuth: types.ErrorAuth = (_, action) => {
         error:    action.payload.message,
     };
 };
+
+export const removeError: types.RemoveError = () => {
+    return {
+        _id:      null,
+        username: null,
+        error:    void 0,
+    };
+};

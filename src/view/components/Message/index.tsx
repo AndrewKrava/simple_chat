@@ -8,7 +8,7 @@ import { faEdit, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../../bus/auth';
 
 // Elements
-import { Alert } from '../../elements';
+import { AlertRemoveItem } from '../../elements';
 
 // Styles
 import * as S from './styles';
@@ -62,7 +62,7 @@ export const Message: FC<MessageType> = (props) => {
         <S.Container >
             {
                 isShowAlert && (
-                    <Alert
+                    <AlertRemoveItem
                         declineDelete = { declineDeleteMessage }
                         messageId = { props._id }
                     />

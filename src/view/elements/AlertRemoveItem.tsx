@@ -64,7 +64,7 @@ type PropsType = {
     declineDelete: Function
 }
 
-export const Alert: FC<PropsType> = (props) => {
+export const AlertRemoveItem: FC<PropsType> = (props) => {
     const { deleteMessage } = useMessages();
 
     return (

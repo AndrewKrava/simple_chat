@@ -11,6 +11,9 @@ import { togglerCreatorAction } from '../../bus/client/togglers';
 // Tools
 import { customFetch } from './customFetch';
 
+// Constants
+import { RETRIES_REQUEST_COUNT } from '../../init/constants';
+
 // Types
 export type FetchOptions = {
     fetch: () => ReturnType<typeof fetch>;
@@ -33,6 +36,8 @@ type OptionsType<SuccessData, ErrorData> = {
     finallyStart?: Function;
     finallyEnd?: Function;
 };
+
+let retries = RETRIES_REQUEST_COUNT;
 
 export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<SuccessData, ErrorData>) {
     const {
@@ -82,14 +87,17 @@ export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<S
             yield catchStart(errorData);
         }
 
+        if (callAction) {
+            while (retries > 0) {
+                retries -= 1;
+                yield put(callAction);
+            }
+            retries = RETRIES_REQUEST_COUNT;
+        }
+
         if (error) {
             yield error(errorData);
         }
-
-        // TODO refactor
-        // if (callAction) {
-        //     yield put(callAction);
-        // }
 
         if (catchEnd) {
             yield catchEnd(errorData);

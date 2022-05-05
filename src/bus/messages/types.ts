@@ -9,6 +9,7 @@ export type MessageType = {
     createdAt: string,
     updatedAt: string
 }
+
 export type MessagesState = Array<MessageType> | null;
 
 // Contracts

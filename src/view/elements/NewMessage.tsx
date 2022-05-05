@@ -34,6 +34,7 @@ const Container = styled.div`
     
     button {
         margin-left: 5px;
+        user-select: none;
     }
 
     svg {
@@ -117,7 +118,6 @@ export const NewMessage: FC<PropsType> = (props) => {
                 value = { message }
                 onChange = { (event) => messageHandler(event) }
                 onKeyDown = { (event) => dispatchEvent(event) }
-                // onKeyPress = { (event) => dispatchEvent(event) }
                 onKeyUp = { (event) => dispatchEvent(event) }
             />
             <button

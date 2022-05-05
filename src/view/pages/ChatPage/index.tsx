@@ -3,9 +3,6 @@ import React, { FC, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedoAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-// Hooks
-import { useLocalStorage } from '../../../tools/hooks';
-
 // Bus
 import { useAuth } from '../../../bus/auth';
 import { useMessages } from '../../../bus/messages';
@@ -16,20 +13,15 @@ import { ErrorBoundary, Message } from '../../components';
 // Elements
 import { NewMessage } from '../../elements';
 
-// Constants
-import { USER_ID } from '../../../init/constants';
-
 // Styles
 import * as S from './styles';
 
 const ChatPage: FC = () => {
-    const { auth, logout } = useAuth();
+    const { auth, logout, userIdToLocalStorage } = useAuth();
     const { messages, postMessage, fetchMessages } = useMessages(true);
 
-    // TODO refactor move to hook
-    const setUserId = useLocalStorage(USER_ID, '')[ 1 ];
     useEffect(() => {
-        auth._id && setUserId(auth._id);
+        auth._id && userIdToLocalStorage(auth._id);
     }, []);
 
     const postMessageHandler = (text: string) => {

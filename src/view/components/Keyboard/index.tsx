@@ -79,7 +79,6 @@ export const Keyboard: FC<PropsType> = (props) => {
         return keyCode && coloredButtnos.has(keyCode) ? 'button-key hover' : 'button-key';
     };
 
-
     return (
         <S.Container>
             <div className = 'first-row'>

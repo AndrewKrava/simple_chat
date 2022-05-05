@@ -17,12 +17,10 @@ import { PostMessageObj } from './postMessage';
 export type PutMessage = {
     messageId: string
     messageObj: PostMessageObj
-
 }
 
 export const putMessageAction = createAction<PutMessage>(`${sliceName}/PUT_MESSAGES_ASYNC`);
 
-// TODO error handling
 // Saga
 const putMessage = (callAction: ReturnType<typeof putMessageAction>) => makeRequest<MessageType>({
     togglerType:  'isLoading',
@@ -40,9 +38,6 @@ const putMessage = (callAction: ReturnType<typeof putMessageAction>) => makeRequ
     success: function* (result) {
         yield put(messagesActions.editMessage(result));
     },
-    // error: function* () {
-
-    // }
 });
 
 // Watcher

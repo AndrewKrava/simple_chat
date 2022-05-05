@@ -13,7 +13,7 @@ import { MessageType } from '../types';
 import { makeRequest } from '../../../tools/utils';
 import { POST_MESSAGE_PATH } from '../../../init/constants';
 
-
+// Action
 export const postMessageAction = createAction<PostMessageObj>(`${sliceName}/POST_MESSAGES_ASYNC`);
 
 // Types
@@ -22,7 +22,6 @@ export type PostMessageObj = {
     username: string
 }
 
-// TODO error handling
 // Saga
 const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRequest<MessageType>({
     togglerType:  'isLoading',
@@ -40,9 +39,6 @@ const postMessage = (callAction: ReturnType<typeof postMessageAction>) => makeRe
     success: function* (response) {
         yield put(messagesActions.addMessage(response));
     },
-    // error: function* () {
-
-    // }
 });
 
 // Watcher

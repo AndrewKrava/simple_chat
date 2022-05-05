@@ -14,3 +14,5 @@ export type BaseContact<T = any> = CaseReducer<AuthState, PayloadAction<T>>;
 export type RefreshAuth = BaseContact<AuthState>;
 
 export type ErrorAuth = BaseContact<Error>;
+
+export type RemoveError = BaseContact<void>;

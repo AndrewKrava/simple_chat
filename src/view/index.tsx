@@ -13,12 +13,8 @@ import { useLocalStorage } from '../tools/hooks';
 import { useTogglersRedux } from '../bus/client/togglers';
 import { useAuth } from '../bus/auth';
 
-
 // Assets
 import { GlobalStyles, defaultTheme } from '../assets';
-
-// Constants
-import { USER_ID } from '../init/constants';
 
 // Styles
 export const AppContainer = styled.div`
@@ -27,7 +23,6 @@ export const AppContainer = styled.div`
     display: flex;
     flex-direction: column;
 `;
-
 
 export const App: FC = () => {
     const { setTogglerAction } = useTogglersRedux();
