@@ -10,6 +10,13 @@ export const POST_MESSAGE_PATH = ROOT_URL + 'messages';
 export const DELETE_MESSAGE_PATH = ROOT_URL + 'messages/';
 export const PUT_MESSAGE_PATH = ROOT_URL + 'messages/';
 
+// Keys
+export const ENTER_KEY_CODE = '13';
+export const CHANGE_LANG_KEY = 'changeLang';
+export const SHIFT_KEY_CODE = '16';
+export const SPACE_KEY_CODE = '32';
+export const BACKSPACE_KEY_CODE = '8';
+
 
 // Local
 export const APP_NAME = process.env.APP_NAME || 'Awesome web app';

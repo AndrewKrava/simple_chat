@@ -26,6 +26,7 @@ export const Container = styled.div`
     .my-message {
         background-color: rgb(159, 133, 255);
         border-radius: 15px 15px 0 15px;
+        color: black;
     }
 
     .message {

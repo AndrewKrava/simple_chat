@@ -38,6 +38,13 @@ export const Container = styled.section`
         align-items: center;
         color: black;
         background-color: white;
+        :hover {
+            cursor: pointer;
+        }
+        :active {
+            box-shadow:         inset 0 0 10px #000000;
+            background-color: rgba(0, 0, 0, 0);
+        }
     }
 
     .hover {

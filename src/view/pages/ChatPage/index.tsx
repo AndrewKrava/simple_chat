@@ -1,5 +1,5 @@
 // Core
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedoAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -23,7 +23,6 @@ import { USER_ID } from '../../../init/constants';
 import * as S from './styles';
 
 const ChatPage: FC = () => {
-    const [ showKeyboard, setShowKeyboard ] = useState(false);
     const { auth, logout } = useAuth();
     const { messages, postMessage, fetchMessages } = useMessages(true);
 

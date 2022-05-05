@@ -8,6 +8,9 @@ import { keyboardUtil, CallbackType } from '../../../tools/utils/keyboardUtil';
 // Helper
 import { keysData } from './keysData';
 
+// Constants
+import { CHANGE_LANG_KEY, SHIFT_KEY_CODE, SPACE_KEY_CODE } from '../../../init/constants';
+
 // Styles
 import * as S from './styles';
 
@@ -19,6 +22,7 @@ type PropsType = {
 export const Keyboard: FC<PropsType> = (props) => {
     const [ coloredButtnos, setColoredButtons ] = useState<Set<string>>(new Set());
     const [ isEnLang, setIsEnLang ] = useState(true);
+    const [ isShiftPress, setIsShiftPress ] = useState(false);
 
     const colorButtonsHandler: CallbackType = (event) => {
         setColoredButtons((prev) => {
@@ -43,9 +47,31 @@ export const Keyboard: FC<PropsType> = (props) => {
 
     const dispatchEvent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const eventData = {
-            key:     event.currentTarget.textContent || '',
+            key:     isShiftPress ? event.currentTarget.textContent?.toUpperCase() || '' : event.currentTarget.textContent || '',
             keyCode: event.currentTarget.dataset.keycode || '',
         };
+        if (eventData.keyCode === CHANGE_LANG_KEY) {
+            setIsEnLang((prev) => !prev);
+
+            return;
+        }
+        if (eventData.keyCode === SHIFT_KEY_CODE) {
+            setIsShiftPress((prev) => !prev);
+            setColoredButtons((prev)=>{
+                if (!isShiftPress) {
+                    return new Set(prev.add(eventData.keyCode));
+                }
+                prev.delete(eventData.keyCode);
+
+                return prev;
+            });
+
+            return;
+        }
+        if (eventData.keyCode === SPACE_KEY_CODE) {
+            eventData.key = ' ';
+        }
+
         keyboardUtil().dispatch('keyboardevent', props.htmlRef, eventData);
     };
 
