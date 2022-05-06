@@ -1,19 +1,39 @@
 // Core
 import styled from 'styled-components';
 
+// Constants
+import { MOBILE_WIDTH, TABLET_WIDTH } from '../../../init/constants';
+
+// width: min(70%, 800px);
+// height: max(150px, 20vh);
+//     margin: auto;
 export const Container = styled.section`
     position: absolute;
-    bottom: 3vh;
+    bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
     opacity: 1;
-    margin: auto;
-    width: min(70%, 800px);
-    height: max(150px, 25vh); 
+
+
     border: 0 solid #0b1301;
     border-radius: 5px;
     padding: 5px;
     background-color: #e58c18;
     display: grid;
     grid-template-rows: repeat(5, 1fr);
+
+    height: 20vh;
+    width: 70vw;
+
+    @media ${MOBILE_WIDTH} {
+        width: 95vw;
+    }
+
+    @media ${TABLET_WIDTH} {
+        width: 95vw;
+    }
 
     .first-row {
         display: grid;

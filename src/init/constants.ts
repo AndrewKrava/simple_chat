@@ -23,3 +23,7 @@ export const CHANGE_LANG_KEY = 'changeLang';
 export const SHIFT_KEY_CODE = '16';
 export const SPACE_KEY_CODE = '32';
 export const BACKSPACE_KEY_CODE = '8';
+
+// View size
+export const MOBILE_WIDTH = '(max-width: 425px)';
+export const TABLET_WIDTH = '(min-width: 426px) and (max-width: 768px)';
