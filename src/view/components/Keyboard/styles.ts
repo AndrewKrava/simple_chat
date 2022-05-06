@@ -18,14 +18,13 @@ export const Container = styled.section`
     background-color: #e58c18;
     display: grid;
     grid-template-rows: repeat(5, 1fr);
-
     height: 20vh;
     width: min(70vw, 1000px);
 
     @media ${MOBILE_WIDTH}, ${TABLET_WIDTH} {
         width: 95vw;
     }
-    
+
     @media ${LANDSCAPE_HEIGHT} {
         height: 29vh;
     }
