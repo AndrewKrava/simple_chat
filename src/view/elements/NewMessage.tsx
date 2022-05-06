@@ -53,6 +53,7 @@ const Container = styled.div`
     }
 `;
 
+// Types
 type PropsType = {
     postMessage: (text: string) => void
 }
@@ -60,17 +61,19 @@ type PropsType = {
 export const NewMessage: FC<PropsType> = (props) => {
     const [ message, setMessage ] = useState('');
     const { isKeyboardShown, switchKeyboard } = useKeyboard();
-    const messageState = useRef(message);
+    const messageRef = useRef(message);
     const keyboardRef = useRef<HTMLDivElement | null>(null);
 
+    // send message to server
     const sendMessage = () => {
-        const messageToSend = messageState.current.trim();
+        const messageToSend = messageRef.current.trim();
         if (messageToSend !== '') {
-            props.postMessage(messageState.current);
+            props.postMessage(messageRef.current);
             setMessage('');
         }
     };
 
+    // callback for listener
     const keyboardListener = (event: VirtualKeyboardEvent) => {
         if (event.detail?.keyCode === ENTER_KEY_CODE) {
             sendMessage();
@@ -85,18 +88,24 @@ export const NewMessage: FC<PropsType> = (props) => {
             } else {
                 resultMessage = `${prev}${event.detail?.key}`;
             }
-            messageState.current = resultMessage;
+            messageRef.current = resultMessage;
 
             return resultMessage;
         });
     };
 
+    // add event listener if virtual keyboard rendered
     useEffect(() => {
-        keyboardUtil().subscribe('keyboardevent', keyboardRef, keyboardListener);
+        if (isKeyboardShown) {
+            keyboardUtil().subscribe('keyboardevent', keyboardRef, keyboardListener);
 
-        return () => keyboardUtil().removeSubscribe('keyboardevent', keyboardRef, keyboardListener);
-    }, []);
+            return () => keyboardUtil().removeSubscribe('keyboardevent', keyboardRef, keyboardListener);
+        }
 
+        return void 0;
+    }, [ isKeyboardShown ]);
+
+    // this function used to dispatch custom event when interact with input field
     const dispatchEvent = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.type !== 'keypress') {
             const eventData = {
@@ -104,16 +113,16 @@ export const NewMessage: FC<PropsType> = (props) => {
                 keyCode:   String(event.keyCode),
                 eventName: event.type,
             };
-            keyboardUtil().dispatch('inputevent', keyboardRef, eventData);
-            console.log('sadsa');
             if (String(event.keyCode) === ENTER_KEY_CODE && event.type === 'keyup') {
                 sendMessage();
             }
+            isKeyboardShown && keyboardUtil().dispatch('inputevent', keyboardRef, eventData);
         }
     };
 
+    // used to change state **message when input value was changed
     const messageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        messageState.current = event.target.value;
+        messageRef.current = event.target.value;
         setMessage(event.target.value);
     };
 

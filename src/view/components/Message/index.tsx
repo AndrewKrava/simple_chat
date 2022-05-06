@@ -6,6 +6,7 @@ import { faEdit, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 // Bus
 import { useAuth } from '../../../bus/auth';
+import { useMessages } from '../../../bus/messages';
 
 // Elements
 import { AlertRemoveItem } from '../../elements';
@@ -15,7 +16,6 @@ import * as S from './styles';
 
 // Types
 import { MessageType } from '../../../bus/messages/types';
-import { useMessages } from '../../../bus/messages';
 
 export const Message: FC<MessageType> = (props) => {
     const [ isEditing, setIsEditing ] = useState(false);
@@ -27,10 +27,12 @@ export const Message: FC<MessageType> = (props) => {
     const isDateSame = moment(props.createdAt).isSame(props.updatedAt);
     const isMyMessage = username === props.username;
 
+    // used to change state **message
     const editingHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(event.target.value);
     };
 
+    // used to switch editing state
     const switchEditing = () => {
         if (isEditing && message !== props.text) {
             setMessage(props.text);
@@ -38,6 +40,7 @@ export const Message: FC<MessageType> = (props) => {
         setIsEditing((prev) => !prev);
     };
 
+    // submit after editing
     const submitEditing = () => {
         username
         && putMessage({
@@ -50,10 +53,12 @@ export const Message: FC<MessageType> = (props) => {
         setIsEditing(false);
     };
 
+    // used to show alert message after delete button was pressed
     const deleteMessageHandler = () => {
         setIsShowAlert(true);
     };
 
+    // used to decline delete message, call in alert component
     const declineDeleteMessage = () => {
         setIsShowAlert(false);
     };
