@@ -14,6 +14,9 @@ import { ErrorBoundary, Message } from '../../components';
 // Elements
 import { NewMessage } from '../../elements';
 
+// Constants
+import { GREETING_USER } from '../../../init';
+
 // Styles
 import * as S from './styles';
 
@@ -42,7 +45,7 @@ const ChatPage: FC = () => {
             {
                 <S.ChatBox isKeyboardShown = { isKeyboardShown }>
                     <div className = 'header'>
-                        <div className = 'header-title'>{auth.username}</div>
+                        <div className = 'header-title'>{`${GREETING_USER} ${auth.username}`}</div>
                         <div className = 'control-buttons'>
                             <FontAwesomeIcon
                                 icon = { faRedoAlt }

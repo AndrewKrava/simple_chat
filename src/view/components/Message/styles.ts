@@ -71,6 +71,7 @@ export const Container = styled.div`
         grid-template-columns: 3fr 1fr;
 
         input {
+            font-size: 1rem;
             padding-bottom: 0.3rem;
             background-color: inherit;
             border: none;
@@ -78,11 +79,11 @@ export const Container = styled.div`
 
             :focus {
                 outline: none;
-                animation: color 1s infinite
+                animation: color 2s infinite
             }
         }
         @keyframes color {
-            50% { border-bottom-color: red}
+            50% { border-bottom-color: rgb(159,133,255);}
         }
 
         .button-section {

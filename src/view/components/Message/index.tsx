@@ -8,6 +8,9 @@ import { faEdit, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../../bus/auth';
 import { useMessages } from '../../../bus/messages';
 
+// Hooks
+import { useKeyboard } from '../../../bus/keyboard';
+
 // Elements
 import { AlertRemoveItem } from '../../elements';
 
@@ -23,17 +26,16 @@ export const Message: FC<MessageType> = (props) => {
     const [ isShowAlert, setIsShowAlert ] = useState(false);
     const { auth: { username }} = useAuth();
     const { putMessage } = useMessages();
-
-    const isDateSame = moment(props.createdAt).isSame(props.updatedAt);
-    const isMyMessage = username === props.username;
+    const { isKeyboardShown, switchKeyboardView } = useKeyboard();
 
     // used to change state **message
     const editingHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(event.target.value);
     };
 
-    // used to switch editing state
+    // used to switch editing state || disable editing state
     const switchEditing = () => {
+        isKeyboardShown && switchKeyboardView(false);
         if (isEditing && message !== props.text) {
             setMessage(props.text);
         }
@@ -73,10 +75,10 @@ export const Message: FC<MessageType> = (props) => {
                     />
                 )
             }
-            <div className = { isMyMessage ? 'box right-position' : 'box left-position' }>
-                <div className = { isMyMessage ? 'content my-message' : 'content message' }>
+            <div className = { username === props.username ? 'box right-position' : 'box left-position' }>
+                <div className = { username === props.username ? 'content my-message' : 'content message' }>
                     {
-                        isMyMessage
+                        username === props.username
                             ? (
                                 <div className = 'message-tools'>
                                     <FontAwesomeIcon
@@ -96,7 +98,7 @@ export const Message: FC<MessageType> = (props) => {
                     {
                         isEditing
                             ? (
-                                <div className = 'editing'>
+                                <form className = 'editing'>
                                     <input
                                         type = 'text'
                                         value = { message }
@@ -110,12 +112,12 @@ export const Message: FC<MessageType> = (props) => {
                                             onClick = { () => submitEditing() }>Update
                                         </button>
                                     </div>
-                                </div>
+                                </form>
                             )
                             : <p>{props.text}</p>
                     }
                     <div className = 'message-info'>
-                        <div>{!isDateSame && 'edited'}</div>
+                        <div>{!moment(props.createdAt).isSame(props.updatedAt) && 'edited'}</div>
                         <div className = 'date'>
                             {moment(props.updatedAt).format('hh:mm:ss')}
                         </div>

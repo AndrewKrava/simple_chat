@@ -1,19 +1,15 @@
 // Types
-export interface VirtualKeyboardEvent extends Event {
-    detail?: {
-        key: string
-        keyCode: string
-        eventName?: string
-    }
-}
-
-export type CallbackType = (event: VirtualKeyboardEvent) => void
-
 export type KeyboardData  = {
     key: string
     keyCode: string
     eventName?: string
 }
+
+export interface VirtualKeyboardEvent extends Event {
+    detail?: KeyboardData
+}
+
+export type CallbackType = (event: VirtualKeyboardEvent) => void
 
 type HtmlRef = React.MutableRefObject<HTMLDivElement | null>;
 type EventType = 'keyboardevent' | 'inputevent'
@@ -28,9 +24,9 @@ export const keyboardUtil = () => {
     };
 
     const dispatch = (eventType: EventType, htmlRef: HtmlRef, data: KeyboardData) => {
-        htmlRef.current?.dispatchEvent(new CustomEvent(eventType, {
-            detail: data,
-        }));
+        htmlRef.current?.dispatchEvent(
+            new CustomEvent(eventType, { detail: data }),
+        );
     };
 
     return {

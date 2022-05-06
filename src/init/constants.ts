@@ -1,7 +1,7 @@
 // Network
 export const API_URL = process.env.API_URL || 'http://localhost:4000';
-// export const ROOT_URL = 'https://api.barbarossa.pp.ua/';
-export const ROOT_URL = 'http://localhost:4000/';
+export const ROOT_URL = 'https://api.barbarossa.pp.ua/';
+// export const ROOT_URL = 'http://localhost:4000/';    // for development
 
 export const REFRESH_AUTH_PATH = ROOT_URL + 'users/refresh/';
 export const REGISTRATION_PATH = ROOT_URL + 'users/register';
@@ -30,3 +30,6 @@ export const BACKSPACE_KEY_CODE = '8';
 export const MOBILE_WIDTH = '(max-width: 425px)';
 export const TABLET_WIDTH = '(min-width: 426px) and (max-width: 768px)';
 export const LANDSCAPE_HEIGHT = '(max-height: 580px)';
+
+// User
+export const GREETING_USER = 'What\'s Up';

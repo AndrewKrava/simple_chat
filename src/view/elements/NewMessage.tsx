@@ -60,9 +60,19 @@ type PropsType = {
 
 export const NewMessage: FC<PropsType> = (props) => {
     const [ message, setMessage ] = useState('');
-    const { isKeyboardShown, switchKeyboard } = useKeyboard();
+    const { isKeyboardShown, switchKeyboardView } = useKeyboard();
     const messageRef = useRef(message);
     const keyboardRef = useRef<HTMLDivElement | null>(null);
+
+    const inputRef = useRef<HTMLInputElement | null>(null);
+
+    // used on every re-render and in child component to set focus on input
+    const setFocusOnInput = () => {
+        inputRef.current?.focus();
+        inputRef.current?.setSelectionRange(-1, -1);
+    };
+
+    useEffect(setFocusOnInput);
 
     // send message to server
     const sendMessage = () => {
@@ -94,7 +104,7 @@ export const NewMessage: FC<PropsType> = (props) => {
         });
     };
 
-    // add event listener if virtual keyboard rendered
+    // if virtual keyboard rendered then add event listener
     useEffect(() => {
         if (isKeyboardShown) {
             keyboardUtil().subscribe('keyboardevent', keyboardRef, keyboardListener);
@@ -110,7 +120,7 @@ export const NewMessage: FC<PropsType> = (props) => {
         if (event.type !== 'keypress') {
             const eventData = {
                 key:       event.key,
-                keyCode:   String(event.keyCode),
+                keyCode:   event.key === ',' || event.key === '.' ? '' :  String(event.keyCode),
                 eventName: event.type,
             };
             if (String(event.keyCode) === ENTER_KEY_CODE && event.type === 'keyup') {
@@ -130,6 +140,7 @@ export const NewMessage: FC<PropsType> = (props) => {
         <Container
             ref = { keyboardRef }>
             <input
+                ref = { inputRef }
                 type = 'text'
                 value = { message }
                 onChange = { (event) => messageHandler(event) }
@@ -145,9 +156,14 @@ export const NewMessage: FC<PropsType> = (props) => {
             <FontAwesomeIcon
                 icon = { faKeyboard }
                 size = '2x'
-                onClick = { () => switchKeyboard(!isKeyboardShown) }
+                onClick = { () => switchKeyboardView(!isKeyboardShown) }
             />
-            {isKeyboardShown && <Keyboard htmlRef = { keyboardRef } />}
+            {isKeyboardShown && (
+                <Keyboard
+                    htmlRef = { keyboardRef }
+                    setFocusOnInput = { setFocusOnInput }
+                />
+            )}
         </Container>
     );
 };

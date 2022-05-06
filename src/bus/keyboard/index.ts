@@ -9,12 +9,12 @@ export const useKeyboard = () => {
     const dispatch = useDispatch();
     const isKeyboardShown = useSelector((state) => state.keyboard);
 
-    const switchKeyboard = (isShown: boolean) => {
+    const switchKeyboardView = (isShown: boolean) => {
         dispatch(keyboardActions.switchKeyboard(isShown));
     };
 
     return {
         isKeyboardShown,
-        switchKeyboard,
+        switchKeyboardView,
     };
 };

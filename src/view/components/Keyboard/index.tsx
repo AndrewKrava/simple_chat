@@ -17,18 +17,25 @@ import * as S from './styles';
 // Types
 type PropsType = {
     htmlRef: React.MutableRefObject<HTMLDivElement | null>
+    setFocusOnInput: () => void
 }
 
 export const Keyboard: FC<PropsType> = (props) => {
-    const [ coloredButtnos, setColoredButtons ] = useState<Set<string>>(new Set());
+    const [ activeButtons, setActiveButtons ] = useState<Set<string>>(new Set());
     const [ isEnLang, setIsEnLang ] = useState(true);
     const [ isShiftPress, setIsShiftPress ] = useState(false);
 
-    const colorButtonsHandler: CallbackType = (event) => {
-        setColoredButtons((prev) => {
+    // callback for listener
+    const activeButtonsHandler: CallbackType = (event) => {
+        setActiveButtons((prev) => {
             if (event.detail?.eventName === 'keydown' && event.detail.keyCode !== '0') {
+                event.detail.key === '.' && prev.add(event.detail?.key);
+                event.detail.key === ',' && prev.add(event.detail?.key);
+
                 return new Set(prev.add(event.detail?.keyCode));
             } else if (event.detail?.eventName === 'keyup' && event.detail.keyCode !== '0') {
+                event.detail.key === '.' && prev.delete(event.detail?.key);
+                event.detail.key === ',' && prev.delete(event.detail?.key);
                 prev.delete(event.detail?.keyCode);
 
                 return new Set(prev);
@@ -38,30 +45,33 @@ export const Keyboard: FC<PropsType> = (props) => {
         });
     };
 
+    // add listener on events from input
     useEffect(() => {
-        keyboardUtil().subscribe('inputevent', props.htmlRef, colorButtonsHandler);
+        keyboardUtil().subscribe('inputevent', props.htmlRef, activeButtonsHandler);
 
-        return () => keyboardUtil().removeSubscribe('inputevent', props.htmlRef, colorButtonsHandler);
+        return () => keyboardUtil().removeSubscribe('inputevent', props.htmlRef, activeButtonsHandler);
     }, []);
 
-
+    // this function used to dispatch custom events from virtual keyboard
     const dispatchEvent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const eventData = {
             key:     isShiftPress ? event.currentTarget.textContent?.toUpperCase() || '' : event.currentTarget.textContent || '',
             keyCode: event.currentTarget.dataset.keycode || '',
         };
+        // change language and exit
         if (eventData.keyCode === CHANGE_LANG_KEY) {
             setIsEnLang((prev) => !prev);
+            props.setFocusOnInput();
 
             return;
         }
         if (eventData.keyCode === SHIFT_KEY_CODE) {
             setIsShiftPress((prev) => !prev);
-            setColoredButtons((prev)=>{
+            setActiveButtons((prev)=>{
                 if (!isShiftPress) {
                     return new Set(prev.add(eventData.keyCode));
                 }
-                prev.delete(eventData.keyCode);
+                prev.clear();
 
                 return prev;
             });
@@ -75,8 +85,9 @@ export const Keyboard: FC<PropsType> = (props) => {
         keyboardUtil().dispatch('keyboardevent', props.htmlRef, eventData);
     };
 
+    // used to get different style classes for buttons
     const getButtonStyle = (keyCode: string | null) => {
-        return keyCode && coloredButtnos.has(keyCode) ? 'button-key hover' : 'button-key';
+        return keyCode && activeButtons.has(keyCode) ? 'button-key active' : 'button-key';
     };
 
     return (
@@ -161,4 +172,3 @@ export const Keyboard: FC<PropsType> = (props) => {
         </S.Container>
     );
 };
-

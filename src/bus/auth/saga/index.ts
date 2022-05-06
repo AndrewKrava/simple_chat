@@ -7,7 +7,6 @@ import { all, call } from 'redux-saga/effects';
 import { refreshAuthAction, watchRefreshAuth } from './refreshAuth';
 import { postRegistrationAction, watchPostRegistration } from './postRegistration';
 
-
 export const useAuthSaga = () => {
     const dispatch = useDispatch();
 

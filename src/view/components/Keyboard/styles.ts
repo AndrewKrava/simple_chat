@@ -67,9 +67,9 @@ export const Container = styled.section`
         }
     }
 
-    .hover {
-        background-color: #303f9f;
-        color: #ffff00;
+    .active {
+        box-shadow:         inset 0 0 10px #000000;
+        background-color: rgba(0, 0, 0, 0);
     }
 `;
 

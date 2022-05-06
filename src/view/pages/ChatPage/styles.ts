@@ -69,14 +69,9 @@ export const ChatBox = styled.div`
     width: 60%;
     margin: auto;
 
-    @media ${MOBILE_WIDTH} {
+    @media ${MOBILE_WIDTH}, ${TABLET_WIDTH} {
         width: 100vw;
         height: ${(props: { isKeyboardShown: boolean }) => props.isKeyboardShown ? '75%' : '100%'};
-    }
-
-    @media ${TABLET_WIDTH} {
-        width: 100vw;
-        height ${(props: { isKeyboardShown: boolean }) => props.isKeyboardShown ? '75%' : '100%'};
     }
 
     @media ${LANDSCAPE_HEIGHT} {
