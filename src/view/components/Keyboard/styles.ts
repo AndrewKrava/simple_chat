@@ -25,7 +25,7 @@ export const Container = styled.section`
     grid-template-rows: repeat(5, 1fr);
 
     height: 20vh;
-    width: 70vw;
+    width: min(70vw, 1000px);
 
     @media ${MOBILE_WIDTH} {
         width: 95vw;

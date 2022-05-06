@@ -18,7 +18,7 @@ import { ENTER_KEY_CODE, BACKSPACE_KEY_CODE } from '../../init/constants';
 
 // Styles
 const Container = styled.div`
-    padding: 20px;
+    padding: 1% 20px;
     background-color: rgb(38, 35, 55);
     display: flex;
     flex-wrap: nowrap;

@@ -13,7 +13,7 @@ export const Container = styled.section`
         position: relative;
         display: flex;
         justify-content: center;
-        margin: 3% 0;
+        margin: 2% 0;
         width: 100%;
     }
 
