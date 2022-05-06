@@ -105,7 +105,8 @@ export const NewMessage: FC<PropsType> = (props) => {
                 eventName: event.type,
             };
             keyboardUtil().dispatch('inputevent', keyboardRef, eventData);
-            if (String(event.keyCode) === ENTER_KEY_CODE) {
+            console.log('sadsa');
+            if (String(event.keyCode) === ENTER_KEY_CODE && event.type === 'onkeyup') {
                 sendMessage();
             }
         }
