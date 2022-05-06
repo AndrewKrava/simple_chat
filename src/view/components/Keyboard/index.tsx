@@ -58,6 +58,7 @@ export const Keyboard: FC<PropsType> = (props) => {
             key:     isShiftPress ? event.currentTarget.textContent?.toUpperCase() || '' : event.currentTarget.textContent || '',
             keyCode: event.currentTarget.dataset.keycode || '',
         };
+
         // change language and exit
         if (eventData.keyCode === CHANGE_LANG_KEY) {
             setIsEnLang((prev) => !prev);

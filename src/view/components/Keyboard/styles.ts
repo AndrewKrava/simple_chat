@@ -6,14 +6,12 @@ import { MOBILE_WIDTH, TABLET_WIDTH, LANDSCAPE_HEIGHT } from '../../../init/cons
 
 export const Container = styled.section`
     position: absolute;
-    bottom: 5px;
+    bottom: 8px;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
     opacity: 1;
-
-
     border: 0 solid #0b1301;
     border-radius: 5px;
     padding: 5px;
