@@ -7,6 +7,9 @@ import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
 // Components
 import { Keyboard } from '../components';
 
+// Bus
+import { useKeyboard } from '../../bus/keyboard';
+
 // Utils
 import { keyboardUtil, VirtualKeyboardEvent } from '../../tools/utils/keyboardUtil';
 
@@ -53,7 +56,7 @@ type PropsType = {
 
 export const NewMessage: FC<PropsType> = (props) => {
     const [ message, setMessage ] = useState('');
-    const [ isShowKeyboard, setIsShowKeyboard ] = useState(false);
+    const { isKeyboardShown, switchKeyboard } = useKeyboard();
     const messageState = useRef(message);
     const keyboardRef = useRef<HTMLDivElement | null>(null);
 
@@ -129,9 +132,9 @@ export const NewMessage: FC<PropsType> = (props) => {
             <FontAwesomeIcon
                 icon = { faKeyboard }
                 size = '2x'
-                onClick = { () => setIsShowKeyboard((prev) => !prev) }
+                onClick = { () => switchKeyboard(!isKeyboardShown) }
             />
-            {isShowKeyboard && <Keyboard htmlRef = { keyboardRef } />}
+            {isKeyboardShown && <Keyboard htmlRef = { keyboardRef } />}
         </Container>
     );
 };

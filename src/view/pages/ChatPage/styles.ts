@@ -9,23 +9,6 @@ export const Container = styled.section`
     background-color: black;
     color: white;
 
-    .container {
-        display: grid;
-        grid-template-rows: 1fr 8fr 1fr;
-        height: 75%;
-        width: 60%;
-
-        @media ${MOBILE_WIDTH} {
-            width: 100vw;
-        }
-
-        @media ${TABLET_WIDTH} {
-            width: 100vw;
-        }
-
-        margin: auto;
-    }
-
     .header {
         position: relative;
         display: flex;
@@ -33,7 +16,7 @@ export const Container = styled.section`
         margin: 3% 0;
         width: 100%;
     }
-    
+
     .header-title {
         font-size: 1.5rem;
     }
@@ -71,7 +54,7 @@ export const Container = styled.section`
         :disabled {
             color: rgb(87, 85, 93);
             background-color: rgb(117, 115, 126);
-            
+
             :hover {
                 cursor: not-allowed;
             }
@@ -79,12 +62,20 @@ export const Container = styled.section`
     }
 `;
 
+export const ChatBox = styled.div`
+    display: grid;
+    grid-template-rows: 1fr 8fr 1fr;
+    height: 75%;
+    width: 60%;
+    margin: auto;
 
-//chat
-// @media ${MOBILE_WIDTH} {
-//     height: calc(100vh - 162px);
-// }
+    @media ${MOBILE_WIDTH} {
+        width: 100vw;
+        height: ${(props: { isKeyboardShown: boolean }) => props.isKeyboardShown ? '75%' : '100%'};
+    }
 
-// @media ${TABLET_WIDTH} {
-//     height: calc(100vh - 162px);
-// }
+    @media ${TABLET_WIDTH} {
+        width: 100vw;
+        height ${(props: { isKeyboardShown: boolean }) => props.isKeyboardShown ? '75%' : '100%'};
+    }
+`;
