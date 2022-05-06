@@ -23,6 +23,7 @@ const Container = styled.div`
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
+    align-items: center;
 
     input {
         position: relative;
@@ -36,6 +37,8 @@ const Container = styled.div`
     }
     
     button {
+        padding: 0 0.5rem;
+        height: 2rem;
         margin-left: 5px;
         user-select: none;
     }

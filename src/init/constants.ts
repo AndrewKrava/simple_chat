@@ -27,3 +27,4 @@ export const BACKSPACE_KEY_CODE = '8';
 // View size
 export const MOBILE_WIDTH = '(max-width: 425px)';
 export const TABLET_WIDTH = '(min-width: 426px) and (max-width: 768px)';
+export const LANDSCAPE_HEIGHT = '(max-height: 580px)';

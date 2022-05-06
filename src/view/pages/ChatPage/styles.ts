@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 // Constants
-import { MOBILE_WIDTH, TABLET_WIDTH } from '../../../init/constants';
+import { MOBILE_WIDTH, TABLET_WIDTH, LANDSCAPE_HEIGHT } from '../../../init/constants';
 
 export const Container = styled.section`
     height: 100vh;
@@ -77,5 +77,9 @@ export const ChatBox = styled.div`
     @media ${TABLET_WIDTH} {
         width: 100vw;
         height ${(props: { isKeyboardShown: boolean }) => props.isKeyboardShown ? '75%' : '100%'};
+    }
+
+    @media ${LANDSCAPE_HEIGHT} {
+        height:  ${(props: { isKeyboardShown: boolean }) => props.isKeyboardShown ? '65%' : '100%'};
     }
 `;

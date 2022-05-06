@@ -2,11 +2,8 @@
 import styled from 'styled-components';
 
 // Constants
-import { MOBILE_WIDTH, TABLET_WIDTH } from '../../../init/constants';
+import { MOBILE_WIDTH, TABLET_WIDTH, LANDSCAPE_HEIGHT } from '../../../init/constants';
 
-// width: min(70%, 800px);
-// height: max(150px, 20vh);
-//     margin: auto;
 export const Container = styled.section`
     position: absolute;
     bottom: 5px;
@@ -35,6 +32,10 @@ export const Container = styled.section`
         width: 95vw;
     }
 
+    @media ${LANDSCAPE_HEIGHT} {
+        height: 29vh;
+    }
+
     .first-row {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
@@ -59,7 +60,7 @@ export const Container = styled.section`
         :hover {
             cursor: pointer;
         }
-        
+
         :active {
             box-shadow:         inset 0 0 10px #000000;
             background-color: rgba(0, 0, 0, 0);

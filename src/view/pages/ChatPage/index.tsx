@@ -37,9 +37,6 @@ const ChatPage: FC = () => {
         }
     };
 
-    console.log('keyb ', isKeyboardShown);
-
-
     return (
         <S.Container>
             {
