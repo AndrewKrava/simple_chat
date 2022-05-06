@@ -22,14 +22,10 @@ export const Container = styled.section`
     height: 20vh;
     width: min(70vw, 1000px);
 
-    @media ${MOBILE_WIDTH} {
+    @media ${MOBILE_WIDTH}, ${TABLET_WIDTH} {
         width: 95vw;
     }
-
-    @media ${TABLET_WIDTH} {
-        width: 95vw;
-    }
-
+    
     @media ${LANDSCAPE_HEIGHT} {
         height: 29vh;
     }
